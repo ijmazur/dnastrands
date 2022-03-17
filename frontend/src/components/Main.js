@@ -1,7 +1,5 @@
 import React from 'react'
 import './Main.css'
-// import ambulance from './../img/ambulance.png'
-// import dispositor from './../img/dispositor.png'
 import { useNavigate }  from 'react-router-dom'
 
 export const Main = () => {
@@ -19,11 +17,9 @@ export const Main = () => {
             </div>
             <div className='main-container'>
                 <div className='section'>
-                    
                     <button style={{ width: '100%', marginTop: '8px' }} class='btn btn-primary' type='button' onClick={() => goToLogin('mainuser')}>MainUser Login</button>
                 </div>
                 <div className='section'>
-                    
                     <button style={{ width: '100%', marginTop: '8px' }} class='btn btn-primary' type='button' onClick={() => goToLogin('seconduser')}>SecondUser Login</button>
                 </div>
             </div>
