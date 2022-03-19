@@ -1,0 +1,26 @@
+name: Deploy frontend
+
+on:
+    push:
+        branches:
+            - master
+            
+jobs:
+    deploy-frontend:
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v2
+              with:
+                node-version: '16'
+            - name: npm install
+              run: | 
+                cd frontend
+                npm install
+            - name: deploy-frontend
+              uses: akhileshns/heroku-deploy@v3.12.12
+              with:
+                heroku_api_key: ${{secrets.HEROKU_API}}
+                heroku_app_name: 'dnastrands-frontend'
+                heroku_email: 'igor.mazur@hotmail.com'
+                appdir: 'frontend'
