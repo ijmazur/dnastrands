@@ -263,7 +263,7 @@ export default function SignUp(props) {
     }
 
     return (
-        <Container component="main" maxWidth="xs" >
+        <Container component="main" maxWidth="xs" className="center" >
             <CssBaseline />
             <Box
                 sx={{
