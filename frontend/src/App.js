@@ -7,6 +7,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 import MainUser from './components/mainuser/MainUser';
 import SecondUser from './components/seconduser/SecondUser';
+import Profile from './components/mainuser/Profile';
+import History from './components/mainuser/History';
 import { Routes, Route, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 
@@ -58,6 +60,8 @@ export default function ToggleColorMode() {
             <Route path="/login" element={<Login button={<ThemeButton />}/>} />
             <Route path="/mainuser" element={<MainUser button={<ThemeButton />}/>} />
             <Route path="/seconduser" element={<SecondUser button={<ThemeButton />}/>} />
+            <Route path="/profile" element={<Profile button={<ThemeButton />}/>} />
+            <Route path="/history" element={<History button={<ThemeButton />}/>} />
           </Routes>
         </Router >
 
