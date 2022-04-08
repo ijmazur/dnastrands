@@ -1,0 +1,16 @@
+mozliwosc
+
+user widzi swoje klucze krypto
+moje klucze/sekwencje -> mozliwosc usuniecia recordu, generate new, przegladanie tych co posiada
+sekwencja dna dostarczana uzytkownikowi
+
+
+onlu id k-lucza
+only sekwencja
+only bitowo
+only 
+
+
+generate new sequence => generowanie i zapisanie sekwencji w bazie / lub wygenerowanie bez zapisywania. 
+view your past sequences => jakies nazewnictwo/id klucza, klucz, sekwencja sama w sobie. 
+zarzadzanie kontem => mozliwosc edycji
