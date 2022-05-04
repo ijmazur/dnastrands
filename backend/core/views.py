@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import permissions
-from core.models import MainUser, SecondUser
+from core.models import MainUser, SecondUser, UpdateProfile
 from core.serializers import MainUserSerializer, SecondUserSerializer
 
 # Create your views here.
@@ -36,3 +36,17 @@ class UserInfoView(viewsets.ViewSet):
             response = serializer.data
             response['type'] = 'seconduser'
             return Response(response)
+
+def update_profile(request):
+    args = {}
+
+    if request.method == 'POST':
+        form = UpdateProfile(request.POST, instance=request.user)
+        form.actual_user = request.user
+        if form.is_valid():
+            form.save()
+    else:
+        form = UpdateProfile()
+
+    args['form'] = form
+    return render(request, 'profile/', args)
