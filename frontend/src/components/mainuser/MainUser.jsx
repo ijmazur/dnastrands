@@ -37,7 +37,7 @@ import Grid from '@mui/material/Grid';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
-
+import GetAppIcon from '@mui/icons-material/GetApp';
 
 
 const drawerWidth = 240;
@@ -136,9 +136,9 @@ function PersistentDrawerRight(props) {
   const [userData, setUserData] = useState();
 
   const navigate = useNavigate();
-    const goToLogin = (goToPage) => {
-        navigate('/', { state: { data: goToPage } });
-    } 
+  const goToLogin = (goToPage) => {
+    navigate('/', { state: { data: goToPage } });
+  }
 
   useEffect(() => {
     authService.getCurrentUser().then(
@@ -147,7 +147,7 @@ function PersistentDrawerRight(props) {
       }
     )
   }, [])
-  
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -156,13 +156,22 @@ function PersistentDrawerRight(props) {
     setOpen(false);
   };
 
+  const onDownload = () => {
+    const link = document.createElement("a");
+    link.download = `download.txt`;
+    link.href = "./testingdownload/download.txt";
+    link.click();
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
+          <a href="/main">
+            <img className='image' src={require("../../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
+          </a>
           {props.button}
-          <img className='image' src={require("../../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
           </Typography>
           <Search>
@@ -193,12 +202,20 @@ function PersistentDrawerRight(props) {
       <Main open={open}>
         <DrawerHeader />
         <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-          <FingerprintIcon fontSize='medium' /> Main View
+          <FingerprintIcon fontSize='medium' /> {props.text}
         </Typography>
         <Grid align="center">
           {/* <TitlebarImageList /> */}
         </Grid>
 
+        {/* DOWNLOAD STUFF ON MAIN PAGE */}
+        <Button
+          variant="contained"
+          size="large"
+          onClick={onDownload}
+          startIcon={<GetAppIcon />}>
+          Download Sample Method File
+        </Button>
       </Main>
       <Drawer
         sx={{
@@ -216,7 +233,7 @@ function PersistentDrawerRight(props) {
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
-          <UserData userData={userData}/>
+          <UserData userData={userData} />
         </DrawerHeader>
         <List>
           <Divider />
@@ -251,7 +268,7 @@ function PersistentDrawerRight(props) {
 
 export const MainUser = (props) => {
   return (
-      <PersistentDrawerRight button={props.button} />
+    <PersistentDrawerRight button={props.button} text={props.text} />
   )
 }
 

@@ -49,7 +49,7 @@ export const Profile = (user) => {
 
     return (
         <>
-            <MainUser />
+            <MainUser text={"Edit Profile"}/>
             <Container className='profileContainer'>
                 <Grid style={{ display: "flex", margin: "20px", justifyItems: "center" }}>
                     <Form>
