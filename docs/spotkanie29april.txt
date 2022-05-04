@@ -1,0 +1,24 @@
+tag na zyczenie dla uzytkownika - gotowy tag z preparatem  (dostaje preparatt i cos tam sobei oznaczy, i w celu weryfikacji cos tam omze od nas doastac)
+
+uzy podaje pewien ciag dfanych i mu generujemy taki tag - ta zapisana informacjie (bezpieczenstwa nie ma)
+
+chcemy aby ta informacja byla zabezpieczona w jakis sposob i weryfikowana przez uzytkownika (Model przechowywania inny - kwestie bezpieczenstaw) bo stajemy sie odpowiedzalni za ta informacje jak ja przechowujemy
+
+jezeli chcemy sie wykluczyc z przechowywania tej informacji - jak to bedzie wygladac ze uz  wporwadza sekret - my to generujemy w locie - i zapisujemy jedynie hasze zeby to zweryfikowac pozniej (wymaga przemyslenia) 
+
+
+proste rozwiazanie
+prosze o wygenerownie tagu
+========================================================
+1 Simple TAG: sekwencja DNA (500 nt - losowo) + dwa primery z zapamiętaną pozycją tych primerów -> pewna wartość * ()
+
+2 Data TAG zapis sekwencji użytkownika: user podaje ciąg danych i kodujemy go na nici DNA () *
+
+3 generowanie Secure TAG: user podaje sekret na bazie którego generujemy nić dna ???
+ ------------------------------------------------------
+potwierdzenie problemu wlasnosci (ze to moj produkt zostal oznaczony) 
+srednio dobre jezeli wybierzemy sobie dwa dowolne primery z tej dlugosci 
+
+chodzi o to ze w 3 metodzie zadna osoba trzecia, poosiadajaca taki tag, jak udowodnic ze jest wlascicielem takiego tagu
+
+kryptografia asymetrcyczna* do 3
