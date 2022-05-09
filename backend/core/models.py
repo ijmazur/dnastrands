@@ -23,27 +23,27 @@ class MainUser(MainAppUser):
 class SecondUser(MainAppUser):
     pass
 
-class UpdateProfile(models.ModelForm):
-    first_name = models.CharField(required=False)
-    last_name = models.CharField(required=False)
-    email = models.EmailField(required=True)
+# class UpdateProfile(models.ModelForm):
+#     first_name = models.CharField(required=False)
+#     last_name = models.CharField(required=False)
+#     email = models.EmailField(required=True)
 
-    class Meta:
-        model = MainAppUser
-        fields = ('first_name', 'last_name', 'mail')
+#     class Meta:
+#         model = MainAppUser
+#         fields = ('first_name', 'last_name', 'mail')
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
+#     def clean_email(self):
+#         email = self.cleaned_data.get('email')
 
-        if email and MainAppUser.objects.filter(email=email).count():
-            raise models.ValidationError('This email address is already in use. Please supply a different email address.')
-        return email
+#         if email and MainAppUser.objects.filter(email=email).count():
+#             raise models.ValidationError('This email address is already in use. Please supply a different email address.')
+#         return email
 
-    def save(self, commit=True):
-        user = super(RegistrationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+#     def save(self, commit=True):
+#         user = super(RegistrationForm, self).save(commit=False)
+#         user.email = self.cleaned_data['email']
 
-        if commit:
-            user.save()
+#         if commit:
+#             user.save()
 
-        return user
+#         return user

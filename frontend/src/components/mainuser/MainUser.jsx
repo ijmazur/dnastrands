@@ -38,7 +38,20 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import GetAppIcon from '@mui/icons-material/GetApp';
-
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import Paper from '@mui/material/Paper';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import HistorySharpIcon from '@mui/icons-material/HistorySharp';
+import BiotechSharpIcon from '@mui/icons-material/BiotechSharp';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const drawerWidth = 240;
 
@@ -163,6 +176,16 @@ function PersistentDrawerRight(props) {
     link.click();
   };
 
+  const [spacing, setSpacing] = React.useState(2);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -208,14 +231,89 @@ function PersistentDrawerRight(props) {
           {/* <TitlebarImageList /> */}
         </Grid>
 
-        {/* DOWNLOAD STUFF ON MAIN PAGE */}
-        <Button
-          variant="contained"
-          size="large"
-          onClick={onDownload}
-          startIcon={<GetAppIcon />}>
-          Download Sample Method File
-        </Button>
+      <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+      <Grid item xs={12}>
+        <Grid container justifyContent="center" spacing={12}>
+          
+            <Grid key={"raz"} item>
+            <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+              <BiotechSharpIcon fontSize='medium' /> Generate #1
+            </Typography>
+              <Paper
+                sx={{
+                  height: 400,
+                  width: 300,
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                }}
+              />
+              <Button variant="outlined" onClick={handleClickOpen}>
+        Open form dialog
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Proszę podać teskt z którego zostanie wygenerowany ciąg. 
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Sekret"
+            type="sekret"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Zatwierdź</Button>
+        </DialogActions>
+      </Dialog>
+            </Grid>
+            <Grid key={"dwa"} item>
+            <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+              <FingerprintIcon fontSize='medium' /> Generate #2
+            </Typography>
+            <Paper
+              sx={{
+                height: 400,
+                width: 300,
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+              }}
+            />
+          </Grid>
+          <Grid key={"trzy"} item>
+          <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+              <HistorySharpIcon fontSize='medium' /> My history
+            </Typography>
+              <Paper
+                sx={{
+                  height: 400,
+                  width: 300,
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                }}
+              />
+            </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+
+    <Grid container spacing={2}>
+          {/* DOWNLOAD STUFF ON MAIN PAGE */}
+          <Button
+            variant="contained"
+            size="large"
+            onClick={onDownload}
+            startIcon={<GetAppIcon />}>
+            Download Sample Method File
+          </Button>
+        </Grid>
+
+
       </Main>
       <Drawer
         sx={{
