@@ -263,7 +263,7 @@ function PersistentDrawerRight(props) {
                   <DialogTitle>Generator Primerów</DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      Proszę podać teskt z którego zostanie wygenerowany ciąg.
+                      Proszę podać teskt z którego zostanie wygenerowany ciąg. Simple TAG: sekwencja DNA (500 nt - losowo) + dwa primery z zapamiętaną pozycją tych primerów -> pewna wartość * ()
                     </DialogContentText>
                     <TextField
                       autoFocus
@@ -298,7 +298,7 @@ function PersistentDrawerRight(props) {
                   <DialogTitle>Generacja #2</DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      Generacja #2
+                    Data TAG zapis sekwencji użytkownika: user podaje ciąg danych i kodujemy go na nici DNA () * 
                     </DialogContentText>
                     <TextField
                       autoFocus
