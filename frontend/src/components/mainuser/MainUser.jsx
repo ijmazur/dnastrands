@@ -146,6 +146,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function PersistentDrawerRight(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [openDialog2, setOpenDialog2] = React.useState(false);
+
   const [userData, setUserData] = useState();
 
   const navigate = useNavigate();
@@ -179,11 +182,19 @@ function PersistentDrawerRight(props) {
   const [spacing, setSpacing] = React.useState(2);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenDialog(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenDialog(false);
+  };
+
+  const handleClickOpen2 = () => {
+    setOpenDialog2(true);
+  };
+
+  const handleClose2 = () => {
+    setOpenDialog2(false);
   };
 
   return (
@@ -231,78 +242,101 @@ function PersistentDrawerRight(props) {
           {/* <TitlebarImageList /> */}
         </Grid>
 
-      <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-      <Grid item xs={12}>
-        <Grid container justifyContent="center" spacing={12}>
-          
-            <Grid key={"raz"} item>
-            <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-              <BiotechSharpIcon fontSize='medium' /> Generate #1
-            </Typography>
-              <Paper
-                sx={{
-                  height: 400,
-                  width: 300,
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                }}
-              />
-              <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Proszę podać teskt z którego zostanie wygenerowany ciąg. 
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Sekret"
-            type="sekret"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Zatwierdź</Button>
-        </DialogActions>
-      </Dialog>
-            </Grid>
-            <Grid key={"dwa"} item>
-            <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-              <FingerprintIcon fontSize='medium' /> Generate #2
-            </Typography>
-            <Paper
-              sx={{
-                height: 400,
-                width: 300,
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-              }}
-            />
-          </Grid>
-          <Grid key={"trzy"} item>
-          <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-              <HistorySharpIcon fontSize='medium' /> My history
-            </Typography>
-              <Paper
-                sx={{
-                  height: 400,
-                  width: 300,
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                }}
-              />
-            </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+        <Grid sx={{ flexGrow: 1 }} container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container justifyContent="center" spacing={12}>
 
-    <Grid container spacing={2}>
+              <Grid key={"raz"} item>
+                <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+                  <BiotechSharpIcon fontSize='medium' /> Generate #1
+                </Typography>
+                <Paper
+                  sx={{
+                    height: 400,
+                    width: 300,
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                  }}
+                />
+                <Button variant="outlined" onClick={handleClickOpen}>Generuj ze słowa klucz</Button>
+                <Dialog open={openDialog} onClose={handleClose}>
+                  <DialogTitle>Generator Primerów</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Proszę podać teskt z którego zostanie wygenerowany ciąg.
+                    </DialogContentText>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Sekret"
+                      type="sekret"
+                      fullWidth
+                      variant="standard"
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Zatwierdź</Button>
+                  </DialogActions>
+                </Dialog>
+              </Grid>
+              <Grid key={"dwa"} item>
+                <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+                  <FingerprintIcon fontSize='medium' /> Generate #2
+                </Typography>
+                <Paper
+                  sx={{
+                    height: 400,
+                    width: 300,
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                  }}
+                />
+                <Button variant="outlined" onClick={handleClickOpen2}>Generacja #2</Button>
+                <Dialog open={openDialog2} onClose={handleClose2}>
+                  <DialogTitle>Generacja #2</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Generacja #2
+                    </DialogContentText>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Generacja#2"
+                      type="generacja#2"
+                      fullWidth
+                      variant="standard"
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose2}>Cancel</Button>
+                    <Button onClick={handleClose2}>Zatwierdź</Button>
+                  </DialogActions>
+                </Dialog>
+              </Grid>
+              <Grid key={"trzy"} item>
+                <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+                  <HistorySharpIcon fontSize='medium' /> My history
+                </Typography>
+                <Paper
+                  sx={{
+                    height: 400,
+                    width: 300,
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                  }}
+                />
+                <IconButton color="primary" aria-label="check my history">
+                  <HistorySharpIcon to="/history"/>
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container spacing={2}>
           {/* DOWNLOAD STUFF ON MAIN PAGE */}
           <Button
             variant="contained"
