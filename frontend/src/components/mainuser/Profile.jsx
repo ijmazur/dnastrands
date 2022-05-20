@@ -2,11 +2,11 @@
 import React from 'react';
 import { Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
-import MainUser from './MainUser';
+import Core from '../core/Core';
 import { Button, TextField, FormLabel, Container, FormGroup, Grid } from '@mui/material';
 
 
-export const Profile = (user) => {
+export const Profile = (props, user) => {
 
     // const defaultConfig = {
     //     headers: {
@@ -49,7 +49,7 @@ export const Profile = (user) => {
 
     return (
         <>
-            <MainUser text={"Edit Profile"}/>
+            <Core button={props.button} text={"Edit Profile"}/>
             <Container className='profileContainer'>
                 <Grid style={{ display: "flex", margin: "20px", justifyItems: "center" }}>
                     <Form>

@@ -52,356 +52,193 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import { TransitionProps } from '@mui/material/transitions';
+import Core from '../core/Core';
 
-const drawerWidth = 240;
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginRight: -drawerWidth,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginRight: 0,
-    }),
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: drawerWidth,
-  }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-start',
-}));
-
-function PersistentDrawerRight(props) {
+export const MainUser = (props) => {
+  
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  }));
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openDialog2, setOpenDialog2] = React.useState(false);
-
+  
   const [userData, setUserData] = useState();
-
+  
   const navigate = useNavigate();
   const goToLogin = (goToPage) => {
     navigate('/', { state: { data: goToPage } });
   }
-
+  
   useEffect(() => {
     authService.getCurrentUser().then(
-      (data) => {
-        setUserData(data);
-      }
+        (data) => {
+            setUserData(data);
+        }
     )
   }, [])
-
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  
   const onDownload = () => {
     const link = document.createElement("a");
     link.download = `download.txt`;
     link.href = "./testingdownload/download.txt";
     link.click();
   };
-
+  
   const [spacing, setSpacing] = React.useState(2);
-
+  
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
-
+  
   const handleClose = () => {
     setOpenDialog(false);
   };
-
+  
   const handleClickOpen2 = () => {
     setOpenDialog2(true);
   };
-
+  
   const handleClose2 = () => {
     setOpenDialog2(false);
   };
-
+  
+  const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+        children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+  
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <a href="/main">
-            <img className='image' src={require("../../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
-          </a>
-          {props.button}
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="szukaj…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <IconButton>
-            <Badge badgeContent={4} color="warning">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Main open={open}>
+    <>
+        <Core text={"Dashboard"} />
         <DrawerHeader />
-        <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-          <FingerprintIcon fontSize='medium' /> {props.text}
-        </Typography>
         <Grid align="center">
-          {/* <TitlebarImageList /> */}
+            {/* <TitlebarImageList /> */}
         </Grid>
-
+  
         <Grid sx={{ flexGrow: 1 }} container spacing={2}>
-          <Grid item xs={12}>
-            <Grid container justifyContent="center" spacing={12}>
-
-              <Grid key={"raz"} item>
-                <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-                  <BiotechSharpIcon fontSize='medium' /> Generate #1
-                </Typography>
-                <Paper
-                  sx={{
-                    height: 400,
-                    width: 300,
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                  }}
-                />
-                <Button variant="outlined" onClick={handleClickOpen}>Generuj ze słowa klucz</Button>
-                <Dialog open={openDialog} onClose={handleClose}>
-                  <DialogTitle>Generator Primerów</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                      Proszę podać teskt z którego zostanie wygenerowany ciąg. Simple TAG: sekwencja DNA (500 nt - losowo) + dwa primery z zapamiętaną pozycją tych primerów -> pewna wartość * ()
-                    </DialogContentText>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="name"
-                      label="Sekret"
-                      type="sekret"
-                      fullWidth
-                      variant="standard"
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Zatwierdź</Button>
-                  </DialogActions>
-                </Dialog>
-              </Grid>
-              <Grid key={"dwa"} item>
-                <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-                  <FingerprintIcon fontSize='medium' /> Generate #2
-                </Typography>
-                <Paper
-                  sx={{
-                    height: 400,
-                    width: 300,
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                  }}
-                />
-                <Button variant="outlined" onClick={handleClickOpen2}>Generacja #2</Button>
-                <Dialog open={openDialog2} onClose={handleClose2}>
-                  <DialogTitle>Generacja #2</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                    Data TAG zapis sekwencji użytkownika: user podaje ciąg danych i kodujemy go na nici DNA () * 
-                    </DialogContentText>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="name"
-                      label="Generacja#2"
-                      type="generacja#2"
-                      fullWidth
-                      variant="standard"
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleClose2}>Cancel</Button>
-                    <Button onClick={handleClose2}>Zatwierdź</Button>
-                  </DialogActions>
-                </Dialog>
-              </Grid>
-              <Grid key={"trzy"} item>
-                <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
-                  <HistorySharpIcon fontSize='medium' /> My history
-                </Typography>
-                <Paper
-                  sx={{
-                    height: 400,
-                    width: 300,
-                    backgroundColor: (theme) =>
-                      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-                  }}
-                />
-                <IconButton color="primary" aria-label="check my history">
-                  <HistorySharpIcon to="/history"/>
-                </IconButton>
-              </Grid>
+            <Grid item xs={12}>
+                <Grid container justifyContent="center" spacing={12}>
+  
+                    <Grid key={"raz"} item>
+                        <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+                            <BiotechSharpIcon fontSize='medium' /> Generate #1
+                        </Typography>
+                        <Paper
+                            sx={{
+                                height: 400,
+                                width: 300,
+                                backgroundColor: (theme) =>
+                                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                            }}
+                        />
+                        <Button variant="outlined" onClick={handleClickOpen}>Generuj ze słowa klucz</Button>
+                        <Dialog open={openDialog} onClose={handleClose}>
+                            <DialogTitle>Generator Primerów</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Proszę podać teskt z którego zostanie wygenerowany ciąg. Data TAG zapis sekwencji użytkownika: user podaje ciąg danych i kodujemy go na nici DNA () *
+                                </DialogContentText>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="name"
+                                    label="Sekret"
+                                    type="sekret"
+                                    fullWidth
+                                    variant="standard"
+                                />
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Link to="/results">
+                                  <Button onClick={handleClose}>Zatwierdź</Button>
+                                </Link>
+                            </DialogActions>
+                        </Dialog>
+                    </Grid>
+                    <Grid key={"dwa"} item>
+                        <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+                            <FingerprintIcon fontSize='medium' /> Generate #2
+                        </Typography>
+                        <Paper
+                            sx={{
+                                height: 400,
+                                width: 300,
+                                backgroundColor: (theme) =>
+                                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                            }}
+                        />
+                        <Button variant="outlined" onClick={handleClickOpen2}>Generacja #2</Button>
+                        <Dialog
+                            open={openDialog2}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={handleClose2}
+                            aria-describedby="alert-dialog-slide-description"
+                        >
+                            <DialogTitle>{"Czy na pewno chcesz abyśmy wygenerowali tag?"}</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-slide-description">
+                  Simple TAG: sekwencja DNA (500 nt - losowo) + dwa primery z zapamiętaną pozycją tych primerów -> pewna wartość * ()
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose2}>NIE</Button>
+                                <Link to="/results">
+                                  <Button onClick={handleClose2}>TAK</Button>
+                                </Link>
+                            </DialogActions>
+                        </Dialog>
+                    </Grid>
+                    <Grid key={"trzy"} item>
+                        <Typography variant="h4" noWrap sx={{ flexGrow: 1 }} component="div" align="center"  >
+                            <HistorySharpIcon fontSize='medium' /> My history
+                        </Typography>
+                        <Paper
+                            sx={{
+                                height: 400,
+                                width: 300,
+                                backgroundColor: (theme) =>
+                                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+                            }}
+                        />
+                        <Link to="/history">
+                          <IconButton color="primary" aria-label="check my history">
+                            <HistorySharpIcon to="/history" />
+                          </IconButton>
+                        </Link>
+                    </Grid>
+                </Grid>
             </Grid>
-          </Grid>
         </Grid>
-
-        <Grid container spacing={2}>
-          {/* DOWNLOAD STUFF ON MAIN PAGE */}
-          <Button
-            variant="contained"
-            size="large"
-            onClick={onDownload}
-            startIcon={<GetAppIcon />}>
-            Download Sample Method File
-          </Button>
-        </Grid>
-
-
-      </Main>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-          },
-        }}
-        variant="persistent"
-        anchor="right"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-          <UserData userData={userData} />
-        </DrawerHeader>
-        <List>
-          <Divider />
-          <ListItem button key={'Moje dane'} component={Link} to="/profile">
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Moje dane'} />
-          </ListItem>
-          <Divider />
-          <ListItem button key={'Historia'} component={Link} to="/history">
-            <ListItemIcon>
-              <AccessTimeFilledIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Historia'} />
-          </ListItem>
-          <Divider />
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={() => goToLogin('')}
-          >
-            <LogoutIcon></LogoutIcon>
-            Wyloguj się
-          </Button>
-        </List>
-
-      </Drawer>
-    </Box>
-  );
-}
-
-export const MainUser = (props) => {
-  return (
-    <PersistentDrawerRight button={props.button} text={props.text} />
+    </>
   )
+  
+  // return (
+  //   <PersistentDrawerRight button={props.button} text={props.text} />
+  // )
 }
 
 export default MainUser;
