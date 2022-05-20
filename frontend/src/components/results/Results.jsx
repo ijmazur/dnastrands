@@ -71,15 +71,15 @@ export const Results = (props) => {
                 alignItems="center"
                 justifyContent="center"
                 style={{ minHeight: '100vh' }}>
-            <Button
-                variant="contained"
-                size="large"
-                onClick={onDownload}
-                startIcon={<GetAppIcon />}
-            >
-                Download Sample Method File
-            </Button>
-        </Grid>
+                <Button
+                    variant="contained"
+                    size="large"
+                    onClick={onDownload}
+                    startIcon={<GetAppIcon />}
+                >
+                    Download Sample Method File
+                </Button>
+            </Grid>
         </>
     )
 }

@@ -82,7 +82,7 @@ export default function SignIn(props) {
                 if (data === 'user') {
                     navigate('/seconduser');
                 } else {
-                    navigate('/mainuser');
+                    navigate('/main');
                 }
             },
             (error) => {
