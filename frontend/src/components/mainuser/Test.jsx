@@ -53,10 +53,14 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
+import Dashboard from '../dashboard/Dashboard';
 
 export const Test = (props) => {
     return (
+      <>
         <Core button={props.button} text={props.text} />
+        <Dashboard />
+      </>
       )
 }
 
