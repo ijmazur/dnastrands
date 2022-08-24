@@ -3,18 +3,11 @@ import React from 'react';
 import { Col, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import Core from '../core/Core';
+import mainuserService from '../../services/mainuser.service';
 import { Button, TextField, FormLabel, Container, FormGroup, Grid } from '@mui/material';
 
 
 export const Profile = (props, user) => {
-
-    // const defaultConfig = {
-    //     headers: {
-    //         'Accept': '*/*',
-    //         'Content-Type': 'application/json',
-    //         Authorization: `Bearer ${user.token}`,
-    //     },
-    // };
 
     //api call to backend
     // const { data } = await axios.post("/api/user/profile", user, defaultConfig);
@@ -46,6 +39,12 @@ export const Profile = (props, user) => {
     //         setPhone(userInfo.phone)
     //     }
     // }, [history, userInfo]);
+
+    const onUserEdited = (user) => {
+        mainuserService.updateUser(user).then(
+            () => getsecondUserList(user.id)
+        );
+    };
 
     return (
         <>
