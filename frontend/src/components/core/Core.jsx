@@ -52,6 +52,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import HomeIcon from '@mui/icons-material/Home';
 import { TransitionProps } from '@mui/material/transitions';
 
 const drawerWidth = 240;
@@ -198,6 +201,12 @@ function PersistentDrawerRight(props) {
     setOpenDialog2(false);
   };
 
+  const [valueTabs, setValueTabs] = React.useState(0);
+
+  const handleChangeTabs = (event, newValueTabs) => {
+    setValueTabs(newValueTabs);
+  };
+
   const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
       children: React.ReactElement<any, any>;
@@ -216,9 +225,21 @@ function PersistentDrawerRight(props) {
             <img className='image' src={require("../../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
           </a>
           {props.button}
-          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-          </Typography>
-          <Search>
+          <Tabs
+            value={valueTabs}
+            onChange={handleChangeTabs}
+            textColor="info"
+            indicatorColor="secondary"
+            aria-label="icon position tabs example"
+          >
+            <Tab icon={<HomeIcon />} label="Home" component={Link} to="/main" />
+            <Tab icon={<BiotechSharpIcon />} label="Generate" component={Link} to="/results"/>
+            <Tab icon={<FingerprintIcon />} label="Generate TAG" component={Link} to="/results"/>
+            <Tab icon={<HistorySharpIcon />} label="History" component={Link} to="/history" />
+          </Tabs>
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div" />
+          { /* SZUKAJKA
+            <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -226,12 +247,13 @@ function PersistentDrawerRight(props) {
               placeholder="szukaj…"
               inputProps={{ 'aria-label': 'search' }}
             />
-          </Search>
+          </Search> */}
+          {/* NOTYFIKACJE 
           <IconButton>
             <Badge badgeContent={4} color="warning">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
           <IconButton
             color="inherit"
             aria-label="open drawer"

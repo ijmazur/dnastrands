@@ -42,7 +42,7 @@ export const Profile = (props, user) => {
 
     const onUserEdited = (user) => {
         mainuserService.updateUser(user).then(
-            () => getsecondUserList(user.id)
+            () => mainuserService.getsecondUserList(user.id)
         );
     };
 

@@ -26,7 +26,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import mainuserService from '../../services/mainuser.service';
 
-export default function Dashboard() {
+export default function Dashboard(props, user) {
 
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -44,9 +44,18 @@ export default function Dashboard() {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openDialog2, setOpenDialog2] = React.useState(false);
 
+  const [userList, setUserList] = useState([]);
+  const loadUsers = () => {
+    mainuserService.getsecondUserList().then(
+        (data) => {
+          setUserList(data);
+        }
+    );
+};
+
   const handleClickOpen = () => {
-    console.log("second user list get", mainuserService.getsecondUserList());
-    console.log("second user list put", mainuserService.updateUser(user[1]));
+    console.log("second user list get", userList);
+    // console.log("second user list put", mainuserService.updateUser(user[1]));
     setOpenDialog(true);
   };
 
@@ -64,6 +73,7 @@ export default function Dashboard() {
 
   return (
     <>
+    <Core button={props.button} text={'Dashboard'} />
       {/* <ImageList sx={{ width: 'auto', height: 'auto'}} cols={3} rowHeight='auto'>
                 {itemData.map((item) => (
                     <ImageListItem key={item.img}>
