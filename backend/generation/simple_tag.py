@@ -5,12 +5,14 @@ import random
 primers = []
 strand_len = 1000
 primers_base_name = "primers_small_set.txt"
+relative_path = "backend/generation/primers_small_set.txt"
+absolute_path = "C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt"
 
 # Function to genrate random DNA strand with givel length
 def random_strand(n):
     return "".join(random.choice('ACTG') for _ in range(n))
     
-primers_base = open(primers_base_name, "r")
+primers_base = open(absolute_path, "r")
 
 # Prefare primer database (file primer_base_name conraint list of primers) 
 for line in primers_base:
@@ -42,8 +44,15 @@ f3_comp = random_strand(f3)
 # strand with the given length composed of primers and fill fragments
 strand = primer_1 + f1_comp + primer_2 + f2_comp + primer_3 + f3_comp
 
+
+def return_to_api():
+    return strand
+
+
 print(primer_1+" - " + str(f1) + " - " + primer_2 + " - " + str(f2) + " - " + primer_3 + " - " + str(f3))
 print("Verification codes:")
 print("1.", f1)
 print("2.", f1+f2)
 print("3.", f2)
+print("strand: ", strand)
+

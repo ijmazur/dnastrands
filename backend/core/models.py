@@ -23,6 +23,16 @@ class MainUser(MainAppUser):
 class SecondUser(MainAppUser):
     pass
 
+
+class Tag(models.Model):
+    verification_codes = models.TextField()
+    f1 = models.TextField()
+    f2 = models.TextField()
+    f3 = models.TextField()
+    strand = models.TextField()
+
+    def __str__(self):
+        return self.strand
 # class UpdateProfile(models.ModelForm):
 #     first_name = models.CharField(required=False)
 #     last_name = models.CharField(required=False)

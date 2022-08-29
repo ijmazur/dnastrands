@@ -3,8 +3,11 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import permissions
-from core.models import MainUser, SecondUser
-from core.serializers import MainUserSerializer, SecondUserSerializer
+from rest_framework.views import APIView
+from rest_framework.generics import get_object_or_404
+from generation import simple_tag
+from core.models import MainUser, SecondUser, Tag
+from core.serializers import MainUserSerializer, SecondUserSerializer, TagSerializer
 
 # Create your views here.
 
@@ -36,6 +39,22 @@ class UserInfoView(viewsets.ViewSet):
             response = serializer.data
             response['type'] = 'seconduser'
             return Response(response)
+
+
+class TagViewSet(APIView):
+    # def get(self, request,):
+    #     response = simple_tag.return_to_api()
+    #     print("response", response)
+    #     return Response(response)
+        
+    def get(self, request, pk=None):
+        if pk:
+            tag = get_object_or_404(Tag.objects.all(), pk=pk)
+            serializer = TagSerializer(tag)
+            return Response({"tag": serializer.data})
+        tags = Tag.objects.all()
+        serializer = TagSerializer(tags, many=True)
+        return Response({"tags": serializer.data})
 
 # def update_profile(request):
 #     args = {}
