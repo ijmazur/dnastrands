@@ -51,11 +51,22 @@ class TagViewSet(APIView):
         if pk:
             tag = get_object_or_404(Tag.objects.all(), pk=pk)
             serializer = TagSerializer(tag)
-            return Response({"tag": serializer.data})
+            return Response({"Tag": serializer.data})
         tags = Tag.objects.all()
         serializer = TagSerializer(tags, many=True)
-        return Response({"tags": serializer.data})
+        return Response({"Tags": serializer.data})
 
+    def post(self, request):
+        tag = request.data.get('Tag')
+        serializer = TagSerializer(data=tag)
+        if serializer.is_valid(raise_exception=True):
+            tag_saved = serializer.save()
+        return Response({"success": "Tag '{}' created successfully".format(tag_saved.verification_codes)})
+
+    def delete(self, request, pk):
+        tag = get_object_or_404(Tag.objects.all(), pk=pk)
+        tag.delete()
+        return Response({"message": "Tag with id `{}` has been deleted.".format(pk)},status=204)
 # def update_profile(request):
 #     args = {}
 

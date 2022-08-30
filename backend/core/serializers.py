@@ -56,3 +56,6 @@ class TagSerializer(serializers.Serializer):
         
         instance.save()
         return instance
+    class Meta:
+        model = Tag
+        fields = '__all__'
