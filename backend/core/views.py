@@ -1,3 +1,4 @@
+from urllib.request import Request
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework import status
@@ -52,7 +53,19 @@ class TagViewSet(APIView):
             tag = get_object_or_404(Tag.objects.all(), pk=pk)
             serializer = TagSerializer(tag)
             return Response({"Tag": serializer.data})
+        
+        print("request user", request.user)
+        be_data = simple_tag.return_to_api()
+        
+        print("request user id", request.user.id)
+        be_data['owner'] = request.user.id
+        serializer = TagSerializer(data = be_data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+
+
         tags = Tag.objects.all()
+        print("tags", tags)
         serializer = TagSerializer(tags, many=True)
         return Response({"Tags": serializer.data})
 
@@ -80,3 +93,11 @@ class TagViewSet(APIView):
 
 #     args['form'] = form
 #     return render(request, 'profile/', args)
+
+
+class OwnerView(APIView):
+    def get(self, request):
+        user = request.user
+        tags = Tag.objects.filter(owner=user)
+        serializer = TagSerializer(tags, many=True)
+        return Response({"Tags": serializer.data})

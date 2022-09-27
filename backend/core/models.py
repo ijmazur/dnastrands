@@ -8,7 +8,6 @@ from django.contrib.auth.models import UserManager
 class MainAppUser(AbstractBaseUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    date_of_birth = models.DateField()
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(max_length=255)
     mail = models.EmailField(max_length=254, unique=True)
@@ -25,6 +24,7 @@ class SecondUser(MainAppUser):
 
 
 class Tag(models.Model):
+    owner = models.ForeignKey(MainAppUser, on_delete = models.CASCADE, null = True, blank = True)
     verification_codes = models.TextField()
     f1 = models.TextField()
     f2 = models.TextField()

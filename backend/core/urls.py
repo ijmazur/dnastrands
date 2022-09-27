@@ -15,5 +15,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/user/', views.UserInfoView.as_view({'get': 'get_user_data'})),
     path('simple-tag/', views.TagViewSet.as_view(), name='generated_tag'),
+    path('simple-tag/my-tags', views.OwnerView.as_view()),
     path('simple-tag/<int:pk>', views.TagViewSet.as_view()),
 ]

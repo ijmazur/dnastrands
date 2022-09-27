@@ -21,6 +21,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import authService from '../services/auth.service';
 
 
 
@@ -48,10 +49,10 @@ export default function SignUp(props) {
     const startValid = { isValid: "no", errorText: "", focused: false }
     const [nameValidation, setNameValidation] = React.useState(startValid);
     const [lastNameValidation, setLastNameValidation] = React.useState(startValid);
-    const [streetValidation, setStreetValidation] = React.useState(startValid);
+    const [dateOfBirthValidation, setdateOfBirthValidation] = React.useState(startValid);
     const [cityValidation, setCityValidation] = React.useState(startValid);
     const [postalCodeValidation, setPostalCodeValidation] = React.useState(startValid);
-    const [phoneNumberValidation, setPhoneNameValidation] = React.useState(startValid);
+    const [usernameValidation, setUsernameValidation] = React.useState(startValid);
     const [emailValidation, setEmailValidation] = React.useState(startValid);
     const [passwordValidation, setPasswordValidation] = React.useState(startValid);
     const [repeatedPasswordValidation, setRepeatedPasswordValidation] = React.useState(startValid);
@@ -65,31 +66,27 @@ export default function SignUp(props) {
 
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         const data = new FormData(event.currentTarget);
+
         const userData = {
-            firstName: data.get('firstName'),
-            lastName: data.get('lastName'),
-            street: data.get('street'),
-            city: data.get('city'),
-            postalCode: data.get('postalCode'),
-            phoneNumber: data.get('phoneNumber'),
-            email: data.get('email'),
-            password: data.set('password', ""),
+            first_name: data.get('firstName'),
+            last_name: data.get('lastName'),
+            username: data.get('username'),
+            mail: data.get('email'),
+            password: data.get('password', ""),
             CheckBox: CheckBox.checked,
 
         }
-        if (nameValidation.focused && lastNameValidation.focused && streetValidation.focused &&
-            cityValidation.focused && postalCodeValidation.focused && phoneNumberValidation.focused &&
+        if (nameValidation.focused && lastNameValidation.focused && usernameValidation.focused && 
             emailValidation.focused && passwordValidation.focused && repeatedPasswordValidation.focused) {
-            console.log(CheckBox)
+            console.log("userdata", userData);
+            authService.register(userData);
         }
         else {
             emptyValidation(data.get('firstName'), setNameValidation, nameValidation)
             emptyValidation(data.get('lastName'), setLastNameValidation, lastNameValidation)
-            emptyValidation(data.get('street'), setStreetValidation, streetValidation)
-            emptyValidation(data.get('city'), setCityValidation, cityValidation)
-            handlePostalCode(data.get('postalCode'), postalCodeValidation)
-            handlePhoneNumber(data.get('phoneNumber'), phoneNumberValidation)
+            emptyValidation(data.get('username'), setUsernameValidation, usernameValidation)
             handleEmail(data.get('email'), emailValidation)
             handlePassword(data.get('password'), passwordValidation)
             event.preventDefault();
@@ -97,41 +94,41 @@ export default function SignUp(props) {
 
     };
 
-    const handlePhoneNumber = (event, prev) => {
-        const onlyNums = event.replace(/[^0-9]/g, '');
-        if (onlyNums.length === 0) {
-            setPhoneNameValidation(prev => ({
-                ...prev,
-                isValid: false,
-                errorText: "Pole nie może być puste",
-                focused: false
-            }));
-            setPhoneNumber(onlyNums);
-        }
-        else if (onlyNums.length < 9) {
-            setPhoneNameValidation(prev => ({
-                ...prev,
-                isValid: false,
-                errorText: "Za krótki numer telefonu",
-                focused: false
-            }));
-            setPhoneNumber(onlyNums);
-        }
-        else if (onlyNums.length === 9) {
-            const number = onlyNums.replace(
-                /(\d{3})(\d{3})(\d{3})/,
-                '$1 $2 $3'
-            );
-            setPhoneNumber(number);
-            setPhoneNameValidation(prev => (
-                {
-                    ...prev,
-                    isValid: true,
-                    errorText: "",
-                    focused: true
-                }));
-        }
-    }
+    // const handleUsername = (event, prev) => {
+    //     const onlyNums = event.replace(/[^0-9]/g, '');
+    //     if (onlyNums.length === 0) {
+    //         setPhoneNameValidation(prev => ({
+    //             ...prev,
+    //             isValid: false,
+    //             errorText: "Pole nie może być puste",
+    //             focused: false
+    //         }));
+    //         setPhoneNumber(onlyNums);
+    //     }
+    //     else if (onlyNums.length < 9) {
+    //         setPhoneNameValidation(prev => ({
+    //             ...prev,
+    //             isValid: false,
+    //             errorText: "Za krótki numer telefonu",
+    //             focused: false
+    //         }));
+    //         setPhoneNumber(onlyNums);
+    //     }
+    //     else if (onlyNums.length === 9) {
+    //         const number = onlyNums.replace(
+    //             /(\d{3})(\d{3})(\d{3})/,
+    //             '$1 $2 $3'
+    //         );
+    //         setPhoneNumber(number);
+    //         setPhoneNameValidation(prev => (
+    //             {
+    //                 ...prev,
+    //                 isValid: true,
+    //                 errorText: "",
+    //                 focused: true
+    //             }));
+    //     }
+    // }
 
     const handlePostalCode = (event, prev) => {
         const onlyNums = event.replace(/[^0-9]/g, '');
@@ -316,7 +313,7 @@ export default function SignUp(props) {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                             <TextField
                                 InputProps={{
                                     endAdornment:
@@ -325,78 +322,36 @@ export default function SignUp(props) {
                                         </InputAdornment>
                                     ,
                                 }}
-                                onChange={(event) => emptyValidation(event.target.value, setStreetValidation, streetValidation)}
-                                error={!streetValidation.isValid}
-                                helperText={streetValidation.errorText}
-                                focused={streetValidation.focused}
+                                onChange={(event) => emptyValidation(event.target.value, setdateOfBirthValidation, dateOfBirthValidation)}
+                                error={!dateOfBirthValidation.isValid}
+                                helperText={dateOfBirthValidation.errorText}
+                                focused={dateOfBirthValidation.focused}
                                 color="success"
-                                autoComplete="street"
-                                name="street"
-                                id="street"
-                                label="Ulica i numer lokalu"
+                                autoComplete="dateOfBirth"
+                                name="dateOfBirth"
+                                id="dateOfBirth"
+                                label="Data Urodzenia"
                                 fullWidth
                             />
-                        </Grid>
-                        <Grid item xs={12} sm={7}>
-                            <TextField
-                                onChange={(event) => emptyValidation(event.target.value, setCityValidation, cityValidation)}
-                                error={!cityValidation.isValid}
-                                helperText={cityValidation.errorText}
-                                focused={cityValidation.focused}
-                                color="success"
-                                id="city"
-                                label="Miejscowość"
-                                name="city"
-                                autoComplete="city"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={5}>
-                            <TextField
-                                InputProps={{
-                                    endAdornment:
-                                        <InputAdornment position="end">
-                                            <LocalPostOfficeIcon />
-                                        </InputAdornment>
-                                    ,
-                                }}
-                                onChange={(event) => { handlePostalCode(event.target.value, postalCodeValidation) }}
-                                error={!postalCodeValidation.isValid}
-                                helperText={postalCodeValidation.errorText}
-                                focused={postalCodeValidation.focused}
-                                color="success"
-                                value={postalCode}
-                                id="postalCode"
-                                label="Kod pocztowy"
-                                name="postalCode"
-                                autoComplete="postalCode"
-                                fullWidth
-                            />
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={12}>
-
                             <TextField
                                 InputProps={{
-                                    startAdornment:
-                                        <InputAdornment position="start">
-                                            +48
-                                        </InputAdornment>,
                                     endAdornment:
                                         <InputAdornment position="end">
                                             <AddIcCallIcon />
                                         </InputAdornment>
                                     ,
                                 }}
-                                onChange={(event) => { handlePhoneNumber(event.target.value, phoneNumberValidation) }}
-                                error={!phoneNumberValidation.isValid}
-                                helperText={phoneNumberValidation.errorText}
-                                focused={phoneNumberValidation.focused}
+                                onChange={(event) => emptyValidation(event.target.value, setUsernameValidation, usernameValidation)}
+                                error={!usernameValidation.isValid}
+                                helperText={usernameValidation.errorText}
+                                focused={usernameValidation.focused}
                                 color="success"
-                                value={phoneNumber}
-                                id="phoneNumber"
-                                label="Numer telefonu"
-                                name="phoneNumber"
-                                autoComplete="phoneNumber"
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
                                 fullWidth
                             />
                         </Grid>

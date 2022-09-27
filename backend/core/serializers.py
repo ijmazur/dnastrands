@@ -37,25 +37,28 @@ class SecondUserSerializer(serializers.ModelSerializer):
         }
 
 
-class TagSerializer(serializers.Serializer):
-    verification_codes = serializers.CharField()
-    f1 = serializers.CharField()
-    f2 = serializers.CharField()
-    f3 = serializers.CharField()
-    strand = serializers.CharField()
+class TagSerializer(serializers.ModelSerializer):
+    # owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    # owner = serializers.RelatedField(read_only=True)
+    # verification_codes = serializers.CharField()
+    # f1 = serializers.CharField()
+    # f2 = serializers.CharField()
+    # f3 = serializers.CharField()
+    # strand = serializers.CharField()
 
-    def create(self, validated_data):
-        return Tag.objects.create(**validated_data)
+    # def create(self, validated_data):
+    #     return Tag.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        instance.verification_codes = validated_data.get('verification_codes', instance.verification_codes)
-        instance.strand = validated_data.get('strand', instance.strand)
-        instance.f1 = validated_data.get('f1', instance.f1)
-        instance.f2 = validated_data.get('f2', instance.f2)
-        instance.f3 = validated_data.get('f3', instance.f3)
+    # def update(self, instance, validated_data):
+    #     instance.verification_codes = validated_data.get('verification_codes', instance.verification_codes)
+    #     instance.strand = validated_data.get('strand', instance.strand)
+    #     instance.f1 = validated_data.get('f1', instance.f1)
+    #     instance.f2 = validated_data.get('f2', instance.f2)
+    #     instance.f3 = validated_data.get('f3', instance.f3)
         
-        instance.save()
-        return instance
+    #     instance.save()
+    #     return instance
+
     class Meta:
         model = Tag
         fields = '__all__'

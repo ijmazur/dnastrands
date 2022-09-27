@@ -25,6 +25,7 @@ import Typography from '@mui/material/Typography';
 import { TransitionProps } from '@mui/material/transitions';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import mainuserService from '../../services/mainuser.service';
+import simpleTagService from '../../services/simpleTag.service';
 
 export default function Dashboard(props, user) {
 
@@ -69,6 +70,10 @@ export default function Dashboard(props, user) {
 
   const handleClose2 = () => {
     setOpenDialog2(false);
+  };
+
+  const handleSimpleTag = () => {
+    simpleTagService.generateTag();
   };
 
   return (
@@ -171,7 +176,7 @@ export default function Dashboard(props, user) {
               <DialogActions>
                 <Button onClick={handleClose2}>NIE</Button>
                 <Link to="/results">
-                  <Button onClick={handleClose2}>TAK</Button>
+                  <Button onClick={handleSimpleTag}>TAK</Button>
                 </Link>
               </DialogActions>
             </Dialog>

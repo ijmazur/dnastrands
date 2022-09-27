@@ -2,6 +2,7 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 const API_AUTH_URL = 'http://127.0.0.1:8000/api/token/';
+const API_REG_URL = 'http://localhost:8000/seconduser/';
 
 const defaultConfig = {
     headers: {
@@ -24,6 +25,12 @@ class AuthService {
                 }
                 return response.data;
             });
+    }
+
+    register(register) {
+        return axios
+        .post(API_REG_URL, register, defaultConfig)
+        .then(response => response.data)
     }
 
     logout() {
