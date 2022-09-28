@@ -19,6 +19,7 @@ import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 import HouseIcon from '@mui/icons-material/House';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPostOfficeIcon from '@mui/icons-material/LocalPostOffice';
+import BadgeIcon from '@mui/icons-material/Badge';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import authService from '../services/auth.service';
@@ -339,7 +340,7 @@ export default function SignUp(props) {
                                 InputProps={{
                                     endAdornment:
                                         <InputAdornment position="end">
-                                            <AddIcCallIcon />
+                                            <BadgeIcon />
                                         </InputAdornment>
                                     ,
                                 }}
