@@ -1,3 +1,4 @@
+from unittest.util import _MAX_LENGTH
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
 from django.contrib.auth.models import UserManager
@@ -25,7 +26,9 @@ class SecondUser(MainAppUser):
 
 class Tag(models.Model):
     owner = models.ForeignKey(MainAppUser, on_delete = models.CASCADE, null = True, blank = True)
-    verification_codes = models.TextField()
+    secret = models.CharField(null=True, blank=True, max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # verification_codes = models.TextField()
     f1 = models.TextField()
     f2 = models.TextField()
     f3 = models.TextField()

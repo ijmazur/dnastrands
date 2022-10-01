@@ -13,6 +13,7 @@ import Core from './components/core/Core';
 import Test from './components/mainuser/Test';
 import Results from './components/results/Results';
 import Dashboard from './components/dashboard/Dashboard';
+import MyTags from './components/mainuser/MyTags';
 import { Routes, Route, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import Cookies from "js-cookie";
 
@@ -69,7 +70,7 @@ export default function ToggleColorMode() {
             <Route path="/core" element={<Core button={<ThemeButton />}/>} />
             <Route path="/test" element={<Test button={<ThemeButton />}/>} />
             <Route path="/results" element={<Results button={<ThemeButton />}/>} />
-            
+            <Route path="/history/:id" element={<MyTags button={<ThemeButton />}/>}/>
           </Routes>
         </Router >
 

@@ -1,0 +1,20 @@
+Celem: stworzenie web appke ktora udostepnia fukncjonalnosc tworzenia TAGow z sekwencji DNA poprzez protokuł HTTP, uzywajac typowe REST API.
+
+Problem: to samo co cel
+
+
+Rozdział 3:
+przygotwanie vsc pod projekt
+- create-react-app, create-django x2 screeny
+
+edycja django settings pod JWT(sposob autoryzacji) i dockera
+- dockera screen + baza 
+- wytlumaczenie polaczenia z baza
+
+tworzenie api django
+- wytlumaczenie (modele, views, url, serializer)
+- laczenie ze skryptami miska
+- postman
+
+tworzenie frontu
+- wytlumaczenie wszytkich url'ow

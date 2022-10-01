@@ -225,7 +225,7 @@ function PersistentDrawerRight(props) {
             <img className='image' src={require("../../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
           </a>
           {props.button}
-          <Tabs
+          {/* <Tabs
             value={valueTabs}
             onChange={handleChangeTabs}
             textColor="info"
@@ -233,10 +233,10 @@ function PersistentDrawerRight(props) {
             aria-label="icon position tabs example"
           >
             <Tab icon={<HomeIcon />} label="Home" component={Link} to="/main" />
-            <Tab icon={<BiotechSharpIcon />} label="Generate" component={Link} to="/results"/>
-            <Tab icon={<FingerprintIcon />} label="Generate TAG" component={Link} to="/results"/>
+            <Tab icon={<BiotechSharpIcon />} label="Generate TAG"  component={Link} to="/results"/>
+            <Tab icon={<FingerprintIcon />} label="Generate S-TAG"  component={Link} to="/results"/>
             <Tab icon={<HistorySharpIcon />} label="History" component={Link} to="/history" />
-          </Tabs>
+          </Tabs> */}
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div" />
           { /* SZUKAJKA
             <Search>
@@ -294,6 +294,14 @@ function PersistentDrawerRight(props) {
         </DrawerHeader>
         <List>
           <Divider />
+          <Divider />
+          <ListItem button key={'Generuj'} component={Link} to="/main">
+            <ListItemIcon>
+              <BiotechSharpIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Generuj'} />
+          </ListItem>
+          <Divider />
           <ListItem button key={'Moje dane'} component={Link} to="/profile">
             <ListItemIcon>
               <PersonIcon />
@@ -310,7 +318,7 @@ function PersistentDrawerRight(props) {
           <Divider />
           <Button
             fullWidth
-            variant="contained"
+            variant="string"
             onClick={() => goToLogin('')}
           >
             <LogoutIcon></LogoutIcon>

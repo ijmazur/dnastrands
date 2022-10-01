@@ -42,17 +42,17 @@ export default function Dashboard(props, user) {
   const [isShown, setIsShown] = useState(false);
   const [isShown2, setIsShown2] = useState(false);
   const [isShown3, setIsShown3] = useState(false);
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [openDialog2, setOpenDialog2] = React.useState(false);
-
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog2, setOpenDialog2] = useState(false);
   const [userList, setUserList] = useState([]);
+  const navigate = useNavigate();
   const loadUsers = () => {
     mainuserService.getsecondUserList().then(
-        (data) => {
-          setUserList(data);
-        }
+      (data) => {
+        setUserList(data);
+      }
     );
-};
+  };
 
   const handleClickOpen = () => {
     console.log("second user list get", userList);
@@ -61,14 +61,17 @@ export default function Dashboard(props, user) {
   };
 
   const handleClose = () => {
+    console.log('asd');
     setOpenDialog(false);
   };
 
   const handleClickOpen2 = () => {
+    console.log('asd2 open');
     setOpenDialog2(true);
   };
 
   const handleClose2 = () => {
+    console.log('asd2 close');
     setOpenDialog2(false);
   };
 
@@ -76,34 +79,13 @@ export default function Dashboard(props, user) {
     simpleTagService.generateTag();
   };
 
+  const handleClickOpen3 = () => {
+    navigate('/profile');
+  };
+
   return (
-    <>
-    <Core button={props.button} text={'Dashboard'} />
-      {/* <ImageList sx={{ width: 'auto', height: 'auto'}} cols={3} rowHeight='auto'>
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img}>
-                        <img
-                            src={`${item.img}?w=248&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-                        <ImageListItemBar
-                            title={item.title}
-                            subtitle={item.author}
-                            actionIcon={
-                                <IconButton
-                                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                                    aria-label={`info about ${item.title}`} 
-                                >
-                                    <BiotechSharpIcon fontSize='medium' />
-                                </IconButton>
-                            }
-                            sx={{textAlign: 'center'}}
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList> */}
+    <div style={{maxWidth: '100vw', overflow: 'hidden'}}>
+      <Core button={props.button} text={'Dashboard'} />
       <Box
         sx={{
           display: 'flex', justifyContent: 'space-around', p: 1, m: 1,
@@ -111,25 +93,19 @@ export default function Dashboard(props, user) {
           alignItems: 'center', flexWrap: 'wrap', backgroundSize: 'center'
         }}
       >
-        <Box sx={{
-          display: 'flex', justifyContent: 'space-around', width: '100%'
-        }}>
-          <Typography variant="h2" > Generate </Typography>
-          <Typography variant="h2" > Generate 2 </Typography>
-          <Typography variant="h2" > Profile </Typography>
-        </Box>
         <Box
           sx={{
-            display: 'flex', justifyContent: 'space-around', m: 1,
+            display: 'flex', justifyContent: 'space-around', m: 1, flexDirection: 'column',
             alignItems: 'stretch', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',
             width: '500px', height: '700px', borderRadius: '5%',
-          }}
-          onClick={handleClickOpen}>
-          <div onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
+          }}>
+          <Typography variant="h3" style={{ textAlign: 'center' }}> Generate from Key</Typography>
+          <div onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} >
             <img src='https://biocryptology.com/wp-content/uploads/2019/11/Untitled-1_0001_AdobeStock_275486156.jpg'
               alt='Generate1' width={'100%'}
-              style={{ borderRadius: '5%', opacity: isShown ? 0.75 : 1, width: '100%', height: '100%' }} />
-            <Dialog open={openDialog} onClose={handleClose}>
+              style={{ borderRadius: '5%', opacity: isShown ? 0.75 : 1, width: '100%', height: '100%' }}
+              onClick={handleClickOpen} />
+            <Dialog open={openDialog} onClose={handleClose} onClick={() => { }}>
               <DialogTitle>Generator Primerów</DialogTitle>
               <DialogContent>
                 <DialogContentText>
@@ -147,9 +123,7 @@ export default function Dashboard(props, user) {
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose}>Anuluj</Button>
-                <Link to="/results">
-                  <Button onClick={handleClose}>Zatwierdź</Button>
-                </Link>
+                <Button onClick={handleClose}>Zatwierdź</Button>
               </DialogActions>
             </Dialog>
           </div>
@@ -157,15 +131,16 @@ export default function Dashboard(props, user) {
 
         <Box
           sx={{
-            display: 'flex', justifyContent: 'space-around', m: 1,
+            display: 'flex', justifyContent: 'space-around', m: 1, flexDirection: 'column',
             alignItems: 'stretch', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',
             width: '500px', height: '700px', borderRadius: '5%',
-          }}
-          onClick={handleClickOpen2}>
+          }}>
+          <Typography variant="h3" style={{ textAlign: 'center' }}> Generate Simple TAG </Typography>
           <div onMouseEnter={() => setIsShown2(true)} onMouseLeave={() => setIsShown2(false)}>
             <img src='https://www.hermiston.or.us/sites/default/files/imageattachments/police/page/9351/fingerprint.jpg'
               alt='Generate2' width={'100%'}
-              style={{ borderRadius: '5%', opacity: isShown2 ? 0.75 : 1, width: '100%', height: '100%' }} />
+              style={{ borderRadius: '5%', opacity: isShown2 ? 0.75 : 1, width: '100%', height: '700px' }}
+              onClick={handleClickOpen2} />
             <Dialog open={openDialog2} onClose={handleClose2} >
               <DialogTitle>{"Czy na pewno chcesz abyśmy wygenerowali tag?"}</DialogTitle>
               <DialogContent>
@@ -175,7 +150,7 @@ export default function Dashboard(props, user) {
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose2}>NIE</Button>
-                <Link to="/results">
+                <Link to="/history">
                   <Button onClick={handleSimpleTag}>TAK</Button>
                 </Link>
               </DialogActions>
@@ -185,49 +160,19 @@ export default function Dashboard(props, user) {
 
         <Box
           sx={{
-            display: 'flex', justifyContent: 'space-around', alignItems: 'stretch',
+            display: 'flex', justifyContent: 'space-around', alignItems: 'stretch', flexDirection: 'column',
             backgroundSize: 'cover', backgroundRepeat: 'no-repeat', m: 1,
             width: '500px', height: '700px', borderRadius: '5%',
           }}>
+          <Typography variant="h3" style={{ textAlign: 'center' }}> Profile </Typography>
           {/* <Link to="/history"> */}
           <div onMouseEnter={() => setIsShown3(true)} onMouseLeave={() => setIsShown3(false)}>
             <img src='https://us.123rf.com/450wm/stunningart/stunningart1804/stunningart180400006/100107681-surreal-image-as-a-businessman-with-invisible-face-stand-with-crossed-hands-and-question-mark-insted.jpg?ver=6'
-              alt='Profile' style={{ borderRadius: '5%', display: 'block', opacity: isShown3 ? 0.65 : 1, width: '100%', height: '100%' }}
-            />
-            {isShown3 ? (
-              <Button sx={{
-                position: 'fixed',
-                top: '50%',
-                //top: '45%', left: '80%' - kurwa mac jebane gowno
-                // transform: `translate(${x}%, ${x}%)`,
-                textAlign: 'center'
-              }}> <Link to="/profile"> My Profile </Link></Button>
-
-            ) : null
-            }
+              alt='Profile' style={{ borderRadius: '5%', display: 'block', opacity: isShown3 ? 0.65 : 1, width: '100%', height: '700px' }}
+              onClick={handleClickOpen3} />
           </div>
-          {/* </Link> */}
         </Box>
       </Box>
-
-    </>
+    </div>
   );
 }
-
-// const itemData = [
-//   {
-//     img: 'https://biocryptology.com/wp-content/uploads/2019/11/Untitled-1_0001_AdobeStock_275486156.jpg',
-//     title: 'Generate #1',
-//     rows: 2,
-//     cols: 2,
-//     featured: true,
-//   },
-//   {
-//     img: 'https://www.hermiston.or.us/sites/default/files/imageattachments/police/page/9351/fingerprint.jpg',
-//     title: 'Generate #2',
-//   },
-//   {
-//     img: 'https://us.123rf.com/450wm/stunningart/stunningart1804/stunningart180400006/100107681-surreal-image-as-a-businessman-with-invisible-face-stand-with-crossed-hands-and-question-mark-insted.jpg?ver=6',
-//     title: 'Profile',
-//   }
-// ];

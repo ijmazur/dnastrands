@@ -2,6 +2,7 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 const API_SECONDUSER_URL = 'http://127.0.0.1:8000/seconduser';
+const API_USER_URL = 'http://127.0.0.1:8000/api/token/user';
 
 const defaultConfig = {
     headers: {
@@ -10,11 +11,8 @@ const defaultConfig = {
     }
 };
 
-
-//glownym userem w apce jest seconduser - trzbea to zmienic bo mi sie pojebalo
-
 class SecondUserService {
-    getsecondUserList() {
+    getSecondUserList() {
         const config = JSON.parse(JSON.stringify(defaultConfig));
         config.headers = {...config.headers, ...authHeader() };
         return axios.get(API_SECONDUSER_URL, config).then(
@@ -26,6 +24,14 @@ class SecondUserService {
         const config = JSON.parse(JSON.stringify(defaultConfig));
         config.headers = {...config.headers, ...authHeader()};
         return axios.put(`${API_SECONDUSER_URL}/${user.id}/`, user, config).then(
+            response => response.data
+        );
+    }
+
+    getUserInfo(){
+        const config = JSON.parse(JSON.stringify(defaultConfig));
+        config.headers = {...config.headers, ...authHeader() };
+        return axios.get(API_USER_URL, config).then(
             response => response.data
         );
     }

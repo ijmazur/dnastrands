@@ -5,13 +5,34 @@ import { Box, Button } from '@mui/material';
 import DownloadingIcon from '@mui/icons-material/Downloading';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { DataGrid } from '@mui/x-data-grid';
+import pastOrderService from '../../services/pastOrder.service';
+import moment from 'moment';
+import { saveAs } from 'file-saver';
 
 export const History = (props) => {
+  const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    getHistory();
+  }, [])
 
-  const handleClick = (event, cellValues) => {
-    console.log(cellValues.row);
+  const handleLink = (event, cellValues) => {
+    navigate(`/history/${cellValues.row.id}`);
   };
 
+  const handleDownload = (event, cellValues) => {
+    pastOrderService.getTagById(cellValues.id).then((response) => {
+      const fileName = `${cellValues.row.orderNumber}.json`;
+      const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
+        type: 'application/json'
+      });
+      saveAs(fileToSave, fileName);
+    });
+  };
+
+  const handleDelete = (event, cellValues) => {
+    pastOrderService.deleteTagById(cellValues.id).then(() => getHistory());
+  };
   const handleCellClick = (param, event) => {
     event.stopPropagation();
   };
@@ -20,19 +41,29 @@ export const History = (props) => {
     event.stopPropagation();
   };
 
+  const getHistory = () => {
+    pastOrderService.getMyTags()
+      .then(response => {
+        const rows2 = response['Tags']
+        rows2.forEach(row => {
+          row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
+        })
+        setRows(rows2)
+      })
+  }
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
-      field: 'date',
+      field: 'created_at',
       headerName: 'Date',
+      valueFormatter: params => moment(params?.value).format("DD/MM/YYYY"),
       width: 150,
-      editable: true,
     },
     {
-      field: 'orderNo',
+      field: 'orderNumber',
       headerName: 'Order Number',
       width: 150,
-      editable: true,
     },
     {
       field: 'url',
@@ -43,10 +74,10 @@ export const History = (props) => {
             variant='contained'
             color='inherit'
             onClick={(event) => {
-              handleClick(event, cellValues);
+              handleLink(event, cellValues);
             }}
           >
-            <Link to={`/${cellValues.row.url}`}>Link</Link>
+            <Link to={`/history/${cellValues.row.id}`}>Link</Link>
           </Button>
         );
       },
@@ -60,7 +91,7 @@ export const History = (props) => {
             variant="string"
             color="primary"
             onClick={(event) => {
-              handleClick(event, cellValues);
+              handleDownload(event, cellValues);
             }}
           >
             <DownloadingIcon />
@@ -77,7 +108,7 @@ export const History = (props) => {
             variant="string"
             color="primary"
             onClick={(event) => {
-              handleClick(event, cellValues);
+              handleDelete(event, cellValues);
             }}
           >
             <DeleteForeverIcon />
@@ -85,41 +116,6 @@ export const History = (props) => {
         );
       }
     },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
-  ];
-
-  const rows = [
-    // { id: 1, date: '25-08-2022', orderNo: 'TAG-000001' },
-    // { id: 2, date: '25-08-2022', orderNo: 'TAG-000002' },
-    // { id: 3, date: '25-08-2022', orderNo: 'TAG-000003' },
-    // { id: 4, date: '25-08-2022', orderNo: 'TAG-000004' },
-    // { id: 5, date: '25-08-2022', orderNo: 'TAG-000005' },
-    // { id: 6, date: '25-08-2022', orderNo: 'TAG-000006' },
-    // { id: 7, date: '25-08-2022', orderNo: 'TAG-000007' },
-    // { id: 8, date: '25-08-2022', orderNo: 'TAG-000008' },
-    // { id: 9, date: '25-08-2022', orderNo: 'TAG-000009' },
-    // { id: 10, date: '25-08-2022', orderNo: 'TAG-000010' },
-    { id: 1, date: '25-08-2022', orderNo: 'TAG-000001', url: 'test' },
-    { id: 2, date: '25-08-2022', orderNo: 'TAG-000002', url: 'test2' },
-    { id: 3, date: '25-08-2022', orderNo: 'TAG-000003', url: 'test3' },
-    { id: 4, date: '25-08-2022', orderNo: 'TAG-000004', url: 'test' },
-    { id: 5, date: '25-08-2022', orderNo: 'TAG-000005', url: 'test' },
-    { id: 6, date: '25-08-2022', orderNo: 'TAG-000006', url: 'test' },
-    { id: 7, date: '25-08-2022', orderNo: 'TAG-000007', url: 'test' },
-    { id: 8, date: '25-08-2022', orderNo: 'TAG-000008', url: 'test' },
-    { id: 9, date: '25-08-2022', orderNo: 'TAG-000009', url: 'test' },
-    { id: 10, date: '25-08-2022', orderNo: 'TAG-000010', url: 'test' },
-    { id: 11, date: '25-08-2022', orderNo: 'TAG-000011', url: 'test' },
-    { id: 12, date: '25-08-2022', orderNo: 'TAG-000012', url: 'test' },
-    { id: 13, date: '25-08-2022', orderNo: 'TAG-000013', url: 'test' },
   ];
 
   return (

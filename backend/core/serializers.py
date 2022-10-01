@@ -33,7 +33,7 @@ class SecondUserSerializer(serializers.ModelSerializer):
         model = SecondUser
         fields = '__all__'
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True, 'required' : False}
         }
 
 
