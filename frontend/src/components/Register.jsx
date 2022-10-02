@@ -141,7 +141,7 @@ export default function SignUp(props) {
             setPostalCodeValidation(prev => ({
                 ...prev,
                 isValid: false,
-                errorText: "Za krótki kod pocztowy",
+                errorText: "Post code is too short",
                 focused: false
             }));
             setPostalCode(onlyNums);
@@ -177,7 +177,7 @@ export default function SignUp(props) {
             setEmailValidation(prev => ({
                 ...prev,
                 isValid: false,
-                errorText: "Niepoprawny email",
+                errorText: "Incorrect email",
                 focused: false
             }));
         }
@@ -203,8 +203,8 @@ export default function SignUp(props) {
             setPasswordValidation(prev => ({
                 ...prev,
                 isValid: false,
-                errorText: "Słabe hasło. Wymagane: długość minimum 8 znaków, " +
-                    "minimum jedna mała litera, minimum jedna duża litera, minimum jedna cyfra, minimu jeden znak specjalny",
+                errorText: 
+                    "Weak password! Required: minimum of 8 letters" + "at least one small letter, one big letter, one number and one special character!",
                 focused: false
             }));
         }
@@ -232,7 +232,7 @@ export default function SignUp(props) {
                 {
                     ...repeatedPasswordValidation,
                     isValid: false,
-                    errorText: "Hasła nie są takie same",
+                    errorText: "Passwords are not the same",
                     focused: false
                 }))
         }
@@ -255,7 +255,7 @@ export default function SignUp(props) {
             setField(prev => ({
                 ...prev,
                 isValid: false,
-                errorText: "Pole nie może byc puste",
+                errorText: "Field can't be empty!",
                 focused: false
             }));
     }
@@ -275,7 +275,7 @@ export default function SignUp(props) {
 
                 <Typography component="h1" variant="h5">
                     {props.button}
-                    Zarejestruj się
+                    Create an account!
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <Grid container spacing={2}>
@@ -289,7 +289,7 @@ export default function SignUp(props) {
                                 autoComplete="given-name"
                                 name="firstName"
                                 id="firstName"
-                                label="Imię"
+                                label="Name"
                                 fullWidth
                             />
                         </Grid>
@@ -308,7 +308,7 @@ export default function SignUp(props) {
                                 color={lastNameValidation.isValid ? "success" : "error"}
                                 focused={lastNameValidation.focused}
                                 id="lastName"
-                                label="Nazwisko"
+                                label="Surname"
                                 name="lastName"
                                 autoComplete="family-name"
                                 fullWidth
@@ -371,7 +371,7 @@ export default function SignUp(props) {
                                 focused={emailValidation.focused}
                                 color="success"
                                 id="email"
-                                label="Adres Email"
+                                label="Email"
                                 name="email"
                                 autoComplete="email"
                                 fullWidth
@@ -397,7 +397,7 @@ export default function SignUp(props) {
                                 focused={passwordValidation.focused}
                                 color="success"
                                 name="password"
-                                label="Hasło"
+                                label="Password"
                                 type={passwordInput}
                                 id="password"
                                 autoComplete="new-password"
@@ -419,7 +419,7 @@ export default function SignUp(props) {
                                 disabled={!passwordValue}
                                 color="success"
                                 name="password"
-                                label="Powtórz hasło"
+                                label="Repeat Password"
                                 type={passwordInput}
                                 value={repeateDpasswordValue}
                                 id="password"
@@ -431,15 +431,16 @@ export default function SignUp(props) {
                     <Button
                         type="submit"
                         fullWidth
-                        variant="contained"
+                        variant="string"
                         sx={{ mt: 3, mb: 2 }}
+                        style={{ border: '1px solid' }}
                     >
-                        Zarejestruj się
+                        Register
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Link href="/login" variant="body2">
-                                Masz już konto? Zaloguj się
+                                Already have an account? Log In!
                             </Link>
                         </Grid>
                     </Grid>

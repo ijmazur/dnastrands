@@ -37,31 +37,29 @@ export const Profile = (props) => {
 
   return (
     <>
-      <Core button={props.button} text={"Edit Profile"} />
+      <Core button={props.button} text={"Edit Your Profile"} />
       <Container className='profileContainer'>
         <Grid style={{ display: "flex", margin: "20px", justifyItems: "center" }}>
           <Form onSubmit={onUserEdited}>
             <FormGroup controlId='name'>
-              <FormLabel>Imię</FormLabel>
+              <FormLabel style={{margin: "5px"}}>Name</FormLabel>
               <TextField
                 id="outlined-basic"
-                label="Wpisz Imię"
+                label="Your Name"
                 variant="outlined"
                 value={name}
                 onChange={(e) => setName(e.target.value)} />
             </FormGroup>
-            {name.first_name}
             <FormGroup controlId='surname'>
-              <FormLabel>Nazwisko</FormLabel>
+              <FormLabel style={{margin: "5px"}}>Surname</FormLabel>
               <TextField
                 id="outlined-basic"
-                label="Wpisz Nazwisko"
+                label="Your Surname"
                 variant="outlined"
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)} />
             </FormGroup>
-            {surname.last_name}
-            <Button type="submit" varient="contained">Update</Button>
+            <Button type="submit" variant="string">Update Details</Button>
           </Form>
         </Grid>
       </Container>

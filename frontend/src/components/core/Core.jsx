@@ -295,25 +295,25 @@ function PersistentDrawerRight(props) {
         <List>
           <Divider />
           <Divider />
-          <ListItem button key={'Generuj'} component={Link} to="/main">
+          <ListItem button key={'Generate'} component={Link} to="/main">
             <ListItemIcon>
               <BiotechSharpIcon />
             </ListItemIcon>
-            <ListItemText primary={'Generuj'} />
+            <ListItemText primary={'Generate'} />
           </ListItem>
           <Divider />
-          <ListItem button key={'Moje dane'} component={Link} to="/profile">
+          <ListItem button key={'Profile'} component={Link} to="/profile">
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary={'Moje dane'} />
+            <ListItemText primary={'Profile'} />
           </ListItem>
           <Divider />
-          <ListItem button key={'Historia'} component={Link} to="/history">
+          <ListItem button key={'History'} component={Link} to="/history">
             <ListItemIcon>
               <AccessTimeFilledIcon />
             </ListItemIcon>
-            <ListItemText primary={'Historia'} />
+            <ListItemText primary={'History'} />
           </ListItem>
           <Divider />
           <Button
@@ -322,7 +322,7 @@ function PersistentDrawerRight(props) {
             onClick={() => goToLogin('')}
           >
             <LogoutIcon></LogoutIcon>
-            Wyloguj się
+            Log Out
           </Button>
         </List>
 

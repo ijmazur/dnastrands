@@ -65,7 +65,7 @@ export default function SignIn(props) {
             setField(prev => ({
                 ...prev,
                 isValid: false,
-                errorText: "Pole nie może byc puste",
+                errorText: "Field can't be empty!",
                 focused: false
             }));
     }
@@ -129,7 +129,7 @@ export default function SignIn(props) {
 
                 <Typography component="h1" variant="h5">
                     {props.button}
-                    Logowanie
+                    Login
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
@@ -172,7 +172,7 @@ export default function SignIn(props) {
                         required
                         fullWidth
                         name="password"
-                        label="Hasło"
+                        label="Password"
                         type={passwordInput}
                         id="password"
                         autoComplete="current-password"
@@ -183,25 +183,26 @@ export default function SignIn(props) {
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
-                        label="Zapamiętaj mnie"
+                        label="Remember me"
                     />
                     <Button
                         type="submit"
                         fullWidth
-                        variant="contained"
+                        variant="string"
                         sx={{ mt: 3, mb: 2 }}
+                        style={{ border: '1px solid'}}
                     >
-                        Zaloguj się
+                        Log In
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="/forgotten-password" variant="body2">
-                                Zapomniałeś hasła?
+                                Forgot your password?
                             </Link>
                         </Grid>
                         <Grid item>
                             <Link href="/register" variant="body2">
-                                {"Załóż konto"}
+                                {"Register"}
                             </Link>
                         </Grid>
                     </Grid>
