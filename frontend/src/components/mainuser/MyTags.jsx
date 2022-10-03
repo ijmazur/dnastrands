@@ -24,7 +24,8 @@ export const MyTags = (props) => {
 
   const handleDownload = (event, tag) => {
     pastOrderService.getTagById(tag.id).then((response) => {
-      const fileName = `${tag.row.orderNumber}.json`;
+      tag.orderNumber = `${tag.secret ? 'TAG' : 'S-TAG'}${tag.id.toString().padStart(6, '0')}`;
+      const fileName = `${tag.orderNumber}.json`;
       const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
         type: 'application/json'
       });
@@ -55,18 +56,18 @@ export const MyTags = (props) => {
           <div className='key'>Strand: </div><div className='value'>{tag.strand}</div>
         </div>
         <div className='holder'>
-          <div className='key'> {} </div>
+          <div className='key'> { } </div>
           <div className='value'>
-          <Button
-            variant='string'
-            color='inherit'
-            style={{ border: '1px solid' }}
-            onClick={(event) => {
-              handleDownload(event, tag.id);
-            }}
-          >
-            Download JSON
-          </Button>
+            <Button
+              variant='string'
+              color='inherit'
+              style={{ border: '1px solid' }}
+              onClick={(event) => {
+                handleDownload(event, tag);
+              }}
+            >
+              Download JSON
+            </Button>
           </div>
         </div>
       </div>

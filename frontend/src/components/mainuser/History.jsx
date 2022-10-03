@@ -22,6 +22,7 @@ export const History = (props) => {
 
   const handleDownload = (event, cellValues) => {
     pastOrderService.getTagById(cellValues.id).then((response) => {
+      console.log('responseH', response);
       const fileName = `${cellValues.row.orderNumber}.json`;
       const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
         type: 'application/json'
