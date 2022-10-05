@@ -88,7 +88,7 @@ export const Profile = (props) => {
                   value={surname}
                   onChange={(e) => setSurname(e.target.value)} />
               </FormGroup>
-              <Button type="submit" variant="string" style={{ margin: '10px' }}>Update Details</Button>
+              <Button type="submit" variant="string" style={{ margin: '10px', border: '1px solid' }}>Update Details</Button>
             </Form>
           </Grid>
           <Grid style={{
@@ -101,7 +101,7 @@ export const Profile = (props) => {
                 &emsp; <b>Surname:</b> {surname} <br/>
                 &emsp; <b>Username:</b> {username} <br/>
                 &emsp; <b>E-Mail:</b> {mail} <br/>
-                &emsp; <b>Recent Orders:</b> {} <br/>
+                {/* &emsp; <b>Recent Orders:</b> {} <br/> */}
             </Typography>
             {/* <Typography variant="h5" nowrap={true}>
               <b>Account Details:</b> <br />
