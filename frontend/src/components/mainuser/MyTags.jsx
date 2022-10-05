@@ -44,6 +44,18 @@ export const MyTags = (props) => {
           <div className='key'>Date: </div><div className='value'>{moment(tag.created_at).format("DD/MM/YYYY")}</div>
         </div>
         <div className="holder">
+          <div className='key'>Primer 1: </div><div className='value'>{tag.primer_1}</div>
+        </div>
+        <div className="holder">
+          <div className='key'>Primer 2: </div><div className='value'>{tag.primer_2}</div>
+        </div>
+        <div className="holder">
+          <div className='key'>Primer 3: </div><div className='value'>{tag.primer_3}</div>
+        </div>
+        <div className="holder">
+          <div className='key'>Scheme: </div><div className='value'>{tag.scheme}</div>
+        </div>
+        <div className="holder">
           <div className='key'>F1: </div><div className='value'>{tag.f1}</div>
         </div>
         <div className="holder">
@@ -51,6 +63,9 @@ export const MyTags = (props) => {
         </div>
         <div className="holder">
           <div className='key'>F3: </div><div className='value'>{tag.f3}</div>
+        </div>
+        <div className="holder">
+          <div className='key'>F1+F2: </div><div className='value'>{tag.f1_f2}</div>
         </div>
         <div className="holder">
           <div className='key'>Strand: </div><div className='value'>{tag.strand}</div>

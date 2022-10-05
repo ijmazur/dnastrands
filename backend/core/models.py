@@ -23,15 +23,18 @@ class MainUser(MainAppUser):
 class SecondUser(MainAppUser):
     pass
 
-
 class Tag(models.Model):
     owner = models.ForeignKey(MainAppUser, on_delete = models.CASCADE, null = True, blank = True)
     secret = models.CharField(null=True, blank=True, max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    # verification_codes = models.TextField()
+    primer_1 = models.TextField()
+    primer_2 = models.TextField()
+    primer_3 = models.TextField()
+    scheme = models.TextField()
     f1 = models.TextField()
     f2 = models.TextField()
     f3 = models.TextField()
+    f1_f2 = models.TextField()
     strand = models.TextField()
 
     def __str__(self):

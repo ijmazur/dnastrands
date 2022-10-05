@@ -55,7 +55,8 @@ class TagViewSet(APIView):
             return Response({"Tag": serializer.data})
         
         print("request user", request.user)
-        be_data = simple_tag.return_to_api()
+        print("request", request)
+        be_data = simple_tag.generate()
         
         print("request user id", request.user.id)
         be_data['owner'] = request.user.id

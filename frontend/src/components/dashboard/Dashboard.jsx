@@ -42,6 +42,7 @@ export default function Dashboard(props, user) {
   const [isShown, setIsShown] = useState(false);
   const [isShown2, setIsShown2] = useState(false);
   const [isShown3, setIsShown3] = useState(false);
+  const [isShown4, setIsShown4] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [openDialog2, setOpenDialog2] = useState(false);
   const [userList, setUserList] = useState([]);
@@ -83,6 +84,10 @@ export default function Dashboard(props, user) {
     navigate('/profile');
   };
 
+  const handleClickOpen4 = () => {
+    navigate('/history');
+  };
+
   return (
     <div style={{maxWidth: '100vw', overflow: 'hidden'}}>
       <Core button={props.button} text={'Dashboard'} />
@@ -93,7 +98,7 @@ export default function Dashboard(props, user) {
           alignItems: 'center', flexWrap: 'wrap', backgroundSize: 'center'
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             display: 'flex', justifyContent: 'space-around', m: 1, flexDirection: 'column',
             alignItems: 'stretch', backgroundSize: 'cover', backgroundRepeat: 'no-repeat',
@@ -127,7 +132,7 @@ export default function Dashboard(props, user) {
               </DialogActions>
             </Dialog>
           </div>
-        </Box>
+        </Box> */}
 
         <Box
           sx={{
@@ -170,6 +175,20 @@ export default function Dashboard(props, user) {
             <img src='https://us.123rf.com/450wm/stunningart/stunningart1804/stunningart180400006/100107681-surreal-image-as-a-businessman-with-invisible-face-stand-with-crossed-hands-and-question-mark-insted.jpg?ver=6'
               alt='Profile' style={{ borderRadius: '5%', display: 'block', opacity: isShown3 ? 0.65 : 1, width: '100%', height: '700px' }}
               onClick={handleClickOpen3} />
+          </div>
+        </Box>
+
+        <Box
+          sx={{
+            display: 'flex', justifyContent: 'space-around', alignItems: 'stretch', flexDirection: 'column',
+            backgroundSize: 'cover', backgroundRepeat: 'no-repeat', m: 1,
+            width: '500px', height: '700px', borderRadius: '5%',
+          }}>
+          <Typography variant="h3" style={{ textAlign: 'center' }}> History </Typography>
+          <div onMouseEnter={() => setIsShown4(true)} onMouseLeave={() => setIsShown4(false)}>
+            <img src='https://images.pexels.com/photos/4792285/pexels-photo-4792285.jpeg'
+              alt='History' style={{ borderRadius: '5%', display: 'block', opacity: isShown4 ? 0.65 : 1, width: '100%', height: '700px' }}
+              onClick={handleClickOpen4} />
           </div>
         </Box>
       </Box>

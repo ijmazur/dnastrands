@@ -6,6 +6,7 @@ import Core from '../core/Core';
 import mainuserService from '../../services/mainuser.service';
 import pastOrderService from '../../services/pastOrder.service';
 import { Button, TextField, FormLabel, Container, FormGroup, Grid, Typography } from '@mui/material';
+import './MyTags.css';
 
 export const Profile = (props) => {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ export const Profile = (props) => {
   const [username, setUsername] = useState('');
   const [mail, setEmail] = useState('');
   const [orderNo, setOrderNo] = useState([]);
-  
+
   const [user, setUser] = useState('');
 
   const getUserInfo = () => {
@@ -55,7 +56,9 @@ export const Profile = (props) => {
     getRecentTags();
   }, [])
 
-
+  //key style={{ overflow: 'auto', textAlign: 'right', fontWeight: 'bold' }}
+  //value style={{ maxWidth: '50%', overflow: 'auto', overflowWrap: 'break-word' }}
+  //holder style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', columnGap: '1em' }}
   return (
     <>
       <Core button={props.button} text={"Edit Your Profile"} />
@@ -100,6 +103,29 @@ export const Profile = (props) => {
                 &emsp; <b>E-Mail:</b> {mail} <br/>
                 &emsp; <b>Recent Orders:</b> {} <br/>
             </Typography>
+            {/* <Typography variant="h5" nowrap={true}>
+              <b>Account Details:</b> <br />
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', columnGap: '1em' }}>
+                &emsp; <div style={{ overflow: 'auto', textAlign: 'left', fontWeight: 'bold' }}>
+                  Name:
+                </div>
+                <div style={{ maxWidth: '50%', overflow: 'auto', overflowWrap: 'break-word' }}>
+                  {name} <br />
+                </div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', columnGap: '1em' }}>
+                &emsp; <div style={{ overflow: 'auto', textAlign: 'right', fontWeight: 'bold' }}><b>Surname:</b></div> <div style={{ maxWidth: '50%', overflow: 'auto', overflowWrap: 'break-word' }}>{surname} <br /></div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', columnGap: '1em' }}>
+                &emsp; <div style={{ overflow: 'auto', textAlign: 'right', fontWeight: 'bold' }}><b>Username:</b> </div><div style={{ maxWidth: '50%', overflow: 'auto', overflowWrap: 'break-word' }}>{username} <br /></div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', columnGap: '1em' }}>
+                &emsp; <div style={{ overflow: 'auto', textAlign: 'right', fontWeight: 'bold' }}><b>E-Mail:</b></div> <div style={{ maxWidth: '50%', overflow: 'auto', overflowWrap: 'break-word' }}>{mail} <br /></div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 3fr', columnGap: '1em' }}>
+                &emsp; <div style={{ overflow: 'auto', textAlign: 'right', fontWeight: 'bold' }}><b>Recent Orders:</b></div> <div style={{ maxWidth: '50%', overflow: 'auto', overflowWrap: 'break-word' }}>{ } <br /></div>
+              </div>
+            </Typography> */}
           </Grid>
         </Grid>
       </Container>
