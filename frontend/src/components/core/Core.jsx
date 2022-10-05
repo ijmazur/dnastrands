@@ -222,7 +222,7 @@ function PersistentDrawerRight(props) {
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <a href="/main">
-            <img className='image' src={require("../../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
+            <img className='image' src={require("../../images/dnalogo.png")} width="100px" height="75px" alt=" " />
           </a>
           {props.button}
           {/* <Tabs

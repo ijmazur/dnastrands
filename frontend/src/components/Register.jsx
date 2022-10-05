@@ -271,7 +271,7 @@ export default function SignUp(props) {
                     alignItems: 'center',
                 }}
             >
-                <img src={require("../images/dnalogo.png")} width="150" height="75" alt="zamów jedzenie" />
+                <img src={require("../images/dnalogo.png")} width="30%" height="30%" alt=" " />
 
                 <Typography component="h1" variant="h5">
                     {props.button}
