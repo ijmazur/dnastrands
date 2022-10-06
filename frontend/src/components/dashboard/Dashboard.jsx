@@ -106,7 +106,7 @@ export default function Dashboard(props, user) {
           }}>
           <Typography variant="h3" style={{ textAlign: 'center' }}> Generate from Key</Typography>
           <div onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} >
-            <img src='https://biocryptology.com/wp-content/uploads/2019/11/Untitled-1_0001_AdobeStock_275486156.jpg'
+            <img src={require("../../images/dna.jpg")}
               alt='Generate1' width={'100%'}
               style={{ borderRadius: '5%', opacity: isShown ? 0.75 : 1, width: '100%', height: '100%' }}
               onClick={handleClickOpen} />
@@ -142,21 +142,21 @@ export default function Dashboard(props, user) {
           }}>
           <Typography variant="h3" style={{ textAlign: 'center' }}> Generate Simple TAG </Typography>
           <div onMouseEnter={() => setIsShown2(true)} onMouseLeave={() => setIsShown2(false)}>
-            <img src='https://www.hermiston.or.us/sites/default/files/imageattachments/police/page/9351/fingerprint.jpg'
+            <img src={require("../../images/fingerprint.jpg")}
               alt='Generate2' width={'100%'}
               style={{ borderRadius: '5%', opacity: isShown2 ? 0.75 : 1, width: '100%', height: '700px' }}
               onClick={handleClickOpen2} />
             <Dialog open={openDialog2} onClose={handleClose2} >
-              <DialogTitle>{"Czy na pewno chcesz abyśmy wygenerowali tag?"}</DialogTitle>
+              <DialogTitle>{"Generation of a simple tag"}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                  Simple TAG: sekwencja DNA (500 nt - losowo) + dwa primery z zapamiętaną pozycją tych primerów -> pewna wartość * ()
+                  Do you wish to generate a simple tag? 
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose2}>NIE</Button>
+                <Button onClick={handleClose2}>CANCEL</Button>
                 <Link to="/history">
-                  <Button onClick={handleSimpleTag}>TAK</Button>
+                  <Button onClick={handleSimpleTag}>CONFIRM</Button>
                 </Link>
               </DialogActions>
             </Dialog>
@@ -172,7 +172,7 @@ export default function Dashboard(props, user) {
           <Typography variant="h3" style={{ textAlign: 'center' }}> Profile </Typography>
           {/* <Link to="/history"> */}
           <div onMouseEnter={() => setIsShown3(true)} onMouseLeave={() => setIsShown3(false)}>
-            <img src='https://us.123rf.com/450wm/stunningart/stunningart1804/stunningart180400006/100107681-surreal-image-as-a-businessman-with-invisible-face-stand-with-crossed-hands-and-question-mark-insted.jpg?ver=6'
+            <img src={require("../../images/profile.webp")}
               alt='Profile' style={{ borderRadius: '5%', display: 'block', opacity: isShown3 ? 0.65 : 1, width: '100%', height: '700px' }}
               onClick={handleClickOpen3} />
           </div>
@@ -186,7 +186,7 @@ export default function Dashboard(props, user) {
           }}>
           <Typography variant="h3" style={{ textAlign: 'center' }}> History </Typography>
           <div onMouseEnter={() => setIsShown4(true)} onMouseLeave={() => setIsShown4(false)}>
-            <img src='https://images.pexels.com/photos/4792285/pexels-photo-4792285.jpeg'
+            <img src={require("../../images/history.jpeg")}
               alt='History' style={{ borderRadius: '5%', display: 'block', opacity: isShown4 ? 0.65 : 1, width: '100%', height: '700px' }}
               onClick={handleClickOpen4} />
           </div>
