@@ -14,9 +14,7 @@ export const Profile = (props) => {
   const [username, setUsername] = useState('');
   const [mail, setEmail] = useState('');
   const [orderNo, setOrderNo] = useState([]);
-
   const [user, setUser] = useState('');
-
   const getUserInfo = () => {
     mainuserService.getUserInfo()
       .then((response) => {

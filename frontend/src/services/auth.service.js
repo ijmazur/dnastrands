@@ -5,47 +5,47 @@ const API_AUTH_URL = 'http://127.0.0.1:8000/api/token/';
 const API_REG_URL = 'http://localhost:8000/seconduser/';
 
 const defaultConfig = {
-    headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-    }
+  headers: {
+    'Accept': '*/*',
+    'Content-Type': 'application/json',
+  }
 }
 
 class AuthService {
-    login(username, password, type) {
-        return axios
-            .post(API_AUTH_URL, {
-                username,
-                password
-            }, defaultConfig)
-            .then(response => {
-                if (response.data.access) {
-                    localStorage.setItem('loggedInAs', type);
-                    localStorage.setItem('user', response.data.access);
-                }
-                return response.data;
-            });
-    }
+  login(username, password, type) {
+    return axios
+      .post(API_AUTH_URL, {
+        username,
+        password
+      }, defaultConfig)
+      .then(response => {
+        if (response.data.access) {
+          localStorage.setItem('loggedInAs', type);
+          localStorage.setItem('user', response.data.access);
+        }
+        return response.data;
+      });
+  }
 
-    register(register) {
-        return axios
-        .post(API_REG_URL, register, defaultConfig)
-        .then(response => response.data)
-    }
+  register(register) {
+    return axios
+      .post(API_REG_URL, register, defaultConfig)
+      .then(response => response.data)
+  }
 
-    logout() {
-        localStorage.removeItem('user');
-    }
+  logout() {
+    localStorage.removeItem('user');
+  }
 
-    getCurrentUser() {
-        const config = JSON.parse(JSON.stringify(defaultConfig));
-        config.headers = {...config.headers, ...authHeader() }
-        return axios.get(API_AUTH_URL + 'user', config).then(
-            (response) => {
-                return response.data
-            }
-        )
-    }
+  getCurrentUser() {
+    const config = JSON.parse(JSON.stringify(defaultConfig));
+    config.headers = { ...config.headers, ...authHeader() }
+    return axios.get(API_AUTH_URL + 'user', config).then(
+      (response) => {
+        return response.data
+      }
+    )
+  }
 }
 
 export default new AuthService();

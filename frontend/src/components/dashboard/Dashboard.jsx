@@ -1,28 +1,15 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { flexbox } from '@mui/system';
 import Core from '../core/Core';
-import BiotechSharpIcon from '@mui/icons-material/BiotechSharp';
-import HistorySharpIcon from '@mui/icons-material/HistorySharp';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
-import { TransitionProps } from '@mui/material/transitions';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import mainuserService from '../../services/mainuser.service';
 import simpleTagService from '../../services/simpleTag.service';
@@ -89,7 +76,7 @@ export default function Dashboard(props, user) {
   };
 
   return (
-    <div style={{maxWidth: '100vw', overflow: 'hidden'}}>
+    <div style={{ maxWidth: '100vw', overflow: 'hidden' }}>
       <Core button={props.button} text={'Dashboard'} />
       <Box
         sx={{
@@ -150,7 +137,7 @@ export default function Dashboard(props, user) {
               <DialogTitle>{"Generation of a simple tag"}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                  Do you wish to generate a simple tag? 
+                  Do you wish to generate a simple tag?
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
