@@ -63,3 +63,15 @@ class Tag(models.Model):
 #             user.save()
 
 #         return user
+
+class Bit(models.Model):
+    owner = models.ForeignKey(MainAppUser, on_delete = models.CASCADE, null = True, blank = True)
+    secret = models.CharField(null=True, blank=True, max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    bits = models.TextField()
+    sub_len = models.TextField()
+    no_sub = models.TextField()
+    whole_bit = models.TextField()
+
+    def __str__(self):
+        return self.whole_bit

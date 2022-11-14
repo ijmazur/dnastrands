@@ -17,4 +17,7 @@ urlpatterns = [
     path('simple-tag/', views.TagViewSet.as_view(), name='generated_tag'),
     path('simple-tag/my-tags', views.OwnerView.as_view()),
     path('simple-tag/my-tags/<int:pk>', views.TagViewSet.as_view()),
+    path('generate-bits/', views.BitViewSet.as_view(), name='generated_bits'),
+    path('generate-bits/my-bits', views.BitOwnerView.as_view()),
+    path('generate-bits/my-bits/<int:pk>', views.BitViewSet.as_view()),
 ]

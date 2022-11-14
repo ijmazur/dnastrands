@@ -1,7 +1,7 @@
 from importlib.resources import read_binary
 from django.db.models import fields
 from rest_framework import serializers
-from core.models import MainUser, SecondUser, Tag
+from core.models import MainUser, SecondUser, Tag, Bit
 
 
 class MainUserSerializer(serializers.ModelSerializer):
@@ -61,4 +61,9 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
+        fields = '__all__'
+
+class BitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bit
         fields = '__all__'

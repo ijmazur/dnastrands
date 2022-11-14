@@ -10,6 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { TextField } from '@mui/material';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import mainuserService from '../../services/mainuser.service';
 import simpleTagService from '../../services/simpleTag.service';
@@ -65,6 +66,10 @@ export default function Dashboard(props, user) {
 
   const handleSimpleTag = () => {
     simpleTagService.generateTag();
+  };
+
+  const handleGenerateBits = () => {
+    simpleTagService.generateBits();
   };
 
   const handleClickOpen3 = () => {
@@ -156,14 +161,52 @@ export default function Dashboard(props, user) {
             backgroundSize: 'cover', backgroundRepeat: 'no-repeat', m: 1,
             width: '500px', height: '700px', borderRadius: '5%',
           }}>
+          <Typography variant="h3" style={{ textAlign: 'center' }}> Generate Bits </Typography>
+          <div onMouseEnter={() => setIsShown3(true)} onMouseLeave={() => setIsShown3(false)}>
+          <img src={require("../../images/dna.jpg")}
+              alt='Dna' width={'100%'}
+              style={{ borderRadius: '5%', display: 'block', opacity: isShown3 ? 0.65 : 1, width: '100%', height: '700px' }}
+              onClick={handleClickOpen} />
+            <Dialog open={openDialog} onClose={handleClose} onClick={() => { }}>
+              <DialogTitle>Generator of Bits</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Please insert a string of text or binary number to code into bits.
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Secret input"
+                  type="secret"
+                  fullWidth
+                  variant="standard"
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>CANCEL</Button>
+                <Link to="/history">
+                  <Button onClick={handleGenerateBits}>CONFIRM</Button>
+                </Link>
+              </DialogActions>
+            </Dialog>
+          </div>
+        </Box>
+
+        {/* <Box
+          sx={{
+            display: 'flex', justifyContent: 'space-around', alignItems: 'stretch', flexDirection: 'column',
+            backgroundSize: 'cover', backgroundRepeat: 'no-repeat', m: 1,
+            width: '500px', height: '700px', borderRadius: '5%',
+          }}>
           <Typography variant="h3" style={{ textAlign: 'center' }}> Profile </Typography>
-          {/* <Link to="/history"> */}
+          <Link to="/history">
           <div onMouseEnter={() => setIsShown3(true)} onMouseLeave={() => setIsShown3(false)}>
             <img src={require("../../images/profile.webp")}
               alt='Profile' style={{ borderRadius: '5%', display: 'block', opacity: isShown3 ? 0.65 : 1, width: '100%', height: '700px' }}
               onClick={handleClickOpen3} />
           </div>
-        </Box>
+        </Box> */}
 
         <Box
           sx={{
