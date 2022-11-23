@@ -11,10 +11,16 @@ import { saveAs } from 'file-saver';
 
 export const History = (props) => {
   const [rows, setRows] = useState([]);
+  const [rowsBits, setRowsBits] = useState([]);
+  const [idk, setIdk] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    getHistory();
+    allShit();
   }, [])
+
+  console.log('rows', rows);
+  console.log('rowsBits', rowsBits);
+  console.log('idk', idk);
 
   const handleLink = (event, cellValues) => {
     navigate(`/history/${cellValues.row.id}`);
@@ -42,15 +48,83 @@ export const History = (props) => {
     event.stopPropagation();
   };
 
-  const getHistory = () => {
+  const gettingTags = () => {
     pastOrderService.getMyTags()
       .then(response => {
         const rows2 = response['Tags']
+        console.log('rows2', rows2);
         rows2.forEach(row => {
           row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
         })
         setRows(rows2)
       })
+    console.log('got Tags');
+  }
+
+  const gettingBits = () => {
+    pastOrderService.getMyBits()
+      .then(response => {
+        console.log('response in bits', response);
+        const rows3 = response['Bis']
+        console.log('rows3', rows3);
+        rows3.forEach(row => {
+          row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
+        })
+        setRowsBits(rows3)
+      })
+    console.log('got Bits');
+  }
+
+  const allShit = () => {
+    pastOrderService.getMyTags()
+      .then(response => {
+        const rows2 = response['Tags']
+        console.log('rows2', rows2);
+        rows2.forEach(row => {
+          row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
+        })
+        setRows(rows2)
+      })
+
+    pastOrderService.getMyBits()
+      .then(response => {
+        console.log('response in bits', response);
+        const rows3 = response['Bis']
+        console.log('rows3', rows3);
+        rows3.forEach(row => {
+          row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
+        })
+        setRowsBits(rows3)
+      })
+    // const x = rows.concat(rowsBits);
+    //setIdk([...rows, ...rowsBits])
+    // setIdk(x)
+    
+    // for (let i = 0; i < (rows.id || rowsBits.id); i++) {
+    //   console.log('test', (rows.id && rowsBits.id));
+    //   const tmp = rows[i] + rowsBits[i];
+    //   setIdk(tmp);
+    //   console.log('tmp', tmp);
+    // }
+
+    // https://stackoverflow.com/questions/21776389/javascript-object-grouping
+    // const groups = rows.reduce((groups, item) => {
+    //   const group = (groups[item.secret] || []);
+    //   group.push(item);
+    //   groups[item.secret] = group;
+    //   return groups;
+    // }, {});
+    // console.log('groups', groups);
+
+    // const x = [...groups, ...groups2];
+    // console.log('x', x);
+  }
+
+  const getHistory = () => {
+    gettingTags()
+    gettingBits()
+    console.log('got History');
+    setIdk([...rows, ...rowsBits])
   }
 
   const columns = [
@@ -129,7 +203,7 @@ export const History = (props) => {
           display: 'flex', height: 631.5, width: 700
         }}>
           <DataGrid
-            rows={rows}
+            rows={idk}
             columns={columns}
             pageSize={10}
             rowsPerPageOptions={[10]}

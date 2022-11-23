@@ -6,7 +6,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
-from generation import simple_tag
+from generation import simple_tag, bits
 from core.models import MainUser, SecondUser, Tag, Bit
 from core.serializers import MainUserSerializer, SecondUserSerializer, TagSerializer, BitSerializer
 
@@ -113,7 +113,7 @@ class BitViewSet(APIView):
         
         print("request user", request.user)
         print("request", request)
-        be_data = simple_tag.generate()
+        be_data = bits.generate()
         
         print("request user id", request.user.id)
         be_data['owner'] = request.user.id
@@ -121,9 +121,9 @@ class BitViewSet(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
-        bits = Bit.objects.all()
-        print("bits", bits)
-        serializer = BitSerializer(bits, many=True)
+        bitss = Bit.objects.all()
+        print("bits", bitss)
+        serializer = BitSerializer(bitss, many=True)
         return Response({"Bits": serializer.data})
 
     def post(self, request):
