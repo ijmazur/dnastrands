@@ -120,6 +120,23 @@ export const History = (props) => {
     // console.log('x', x);
   }
 
+  const groups = rows.reduce((groups, item) => ({
+    ...groups,
+    [item.secret]: [...(groups[item.secret] || []), item]
+  }), {});
+
+  const groupsBit = rowsBits.reduce((groupsBit, item) => ({
+    ...groupsBit,
+    [item.secret]: [...(groupsBit[item.secret] || []), item]
+  }), {});
+
+  // const test = [...groups, ...groupsBit];
+  const test = groups.concat(groupsBit);
+
+  console.log('groups', groups);
+  console.log('groupsBit', groupsBit);
+  console.log('test', test);
+
   const getHistory = () => {
     gettingTags()
     gettingBits()
