@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
 export const Bits = (props) => {
   const { id } = useParams();
   const [bit, setBit] = useState('');
+  const [wholeThing, setWholeThing] = useState([]);
   useEffect(() => {
     downloadBitData(id);
   }, [])
@@ -19,6 +20,8 @@ export const Bits = (props) => {
       const bit = response['Bit'];
       bit.orderNumber = `${bit.secret ? 'BIT' : 'S-TAG'}${bit.id.toString().padStart(6, '0')}`;
       setBit(bit)
+      setWholeThing(JSON.parse(bit.whole_bit))
+      setTimeout(() => console.log('wasd', JSON.parse(bit.whole_bit)), 1000)
     });
   };
 
@@ -52,9 +55,10 @@ export const Bits = (props) => {
         <div className="holder">
           <div className='key'>Number of sub: </div><div className='value'>{bit.no_sub}</div>
         </div>
-        <div className="holder">
-          <div className='key'>Whole Thing: </div><div className='value'>{bit.whole_bit}</div>
-        </div>
+        { wholeThing.map((thing, i) => (
+        <div className="holder" key={i}>
+          <div className='key'>Sub: </div><div className='value'>{thing.join(", ")}</div>
+        </div>)) }
         <div className='holder'>
           <div className='key'> { } </div>
           <div className='value'>

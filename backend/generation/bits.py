@@ -8,15 +8,18 @@
 import random
 import json
 
-data = "01100101001010101101010101010101010"
+data2 = "01100101001010101101010101010101010"
 primers = []
 
 # primers_base = open("primers_small_set.txt", "r")
 # absolute_path = open("C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt", "r")
 # absolute_path = "D:/Python/dnastrands/backend/generation/primers_small_set.txt"
 
-def generate():
-    absolute_path = open("C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt", "r")
+def generate(inputData):
+    data = ''.join(format(ord(x), 'b') for x in inputData)
+
+    #absolute_path = open("C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt", "r")
+    absolute_path = open("D:/Python/dnastrands/backend/generation/primers_small_set.txt", "r")
     for line in absolute_path:
         primers.append(line[:-1])
     absolute_path.close()
@@ -99,8 +102,3 @@ def generate():
         'no_sub' : number_of_substrands,
         'whole_bit': sub,
     }
-
-def return_to_api():
-    generate()
-
-generate()

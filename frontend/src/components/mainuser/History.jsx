@@ -11,34 +11,43 @@ import { saveAs } from 'file-saver';
 
 export const History = (props) => {
   const [rows, setRows] = useState([]);
-  const [rowsBits, setRowsBits] = useState([]);
   const [idk, setIdk] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    allShit();
+    getHistory();
   }, [])
 
-  console.log('rows', rows);
-  console.log('rowsBits', rowsBits);
-  console.log('idk', idk);
 
   const handleLink = (event, cellValues) => {
-    navigate(`/history/${cellValues.row.id}`);
+    navigate(cellValues.row.secret ? `/bits/${cellValues.row.id}` : `/history/${cellValues.row.id}`);
   };
 
   const handleDownload = (event, cellValues) => {
-    pastOrderService.getTagById(cellValues.id).then((response) => {
-      console.log('responseH', response);
-      const fileName = `${cellValues.row.orderNumber}.json`;
-      const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
-        type: 'application/json'
+    if(cellValues.row.secret) {
+      pastOrderService.getBitById(cellValues.id).then((response) => {
+        const fileName = `${cellValues.row.orderNumber}.json`;
+        const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
+          type: 'application/json'
+        });
+        saveAs(fileToSave, fileName);
       });
-      saveAs(fileToSave, fileName);
-    });
+    } else {
+      pastOrderService.getTagById(cellValues.id).then((response) => {
+        const fileName = `${cellValues.row.orderNumber}.json`;
+        const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
+          type: 'application/json'
+        });
+        saveAs(fileToSave, fileName);
+      });
+    }
   };
 
   const handleDelete = (event, cellValues) => {
-    pastOrderService.deleteTagById(cellValues.id).then(() => getHistory());
+    if(cellValues.row.secret) {
+      pastOrderService.deleteBitById(cellValues.id).then(() => getHistory());
+    } else {
+      pastOrderService.deleteTagById(cellValues.id).then(() => getHistory());
+    }
   };
   const handleCellClick = (param, event) => {
     event.stopPropagation();
@@ -48,100 +57,23 @@ export const History = (props) => {
     event.stopPropagation();
   };
 
-  const gettingTags = () => {
-    pastOrderService.getMyTags()
-      .then(response => {
-        const rows2 = response['Tags']
-        console.log('rows2', rows2);
-        rows2.forEach(row => {
-          row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
-        })
-        setRows(rows2)
-      })
-    console.log('got Tags');
-  }
-
-  const gettingBits = () => {
-    pastOrderService.getMyBits()
-      .then(response => {
-        console.log('response in bits', response);
-        const rows3 = response['Bis']
-        console.log('rows3', rows3);
-        rows3.forEach(row => {
-          row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
-        })
-        setRowsBits(rows3)
-      })
-    console.log('got Bits');
-  }
-
-  const allShit = () => {
-    pastOrderService.getMyTags()
-      .then(response => {
-        const rows2 = response['Tags']
-        console.log('rows2', rows2);
-        rows2.forEach(row => {
-          row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
-        })
-        setRows(rows2)
-      })
-
-    pastOrderService.getMyBits()
-      .then(response => {
-        console.log('response in bits', response);
-        const rows3 = response['Bis']
-        console.log('rows3', rows3);
-        rows3.forEach(row => {
-          row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
-        })
-        setRowsBits(rows3)
-      })
-    // const x = rows.concat(rowsBits);
-    //setIdk([...rows, ...rowsBits])
-    // setIdk(x)
-    
-    // for (let i = 0; i < (rows.id || rowsBits.id); i++) {
-    //   console.log('test', (rows.id && rowsBits.id));
-    //   const tmp = rows[i] + rowsBits[i];
-    //   setIdk(tmp);
-    //   console.log('tmp', tmp);
-    // }
-
-    // https://stackoverflow.com/questions/21776389/javascript-object-grouping
-    // const groups = rows.reduce((groups, item) => {
-    //   const group = (groups[item.secret] || []);
-    //   group.push(item);
-    //   groups[item.secret] = group;
-    //   return groups;
-    // }, {});
-    // console.log('groups', groups);
-
-    // const x = [...groups, ...groups2];
-    // console.log('x', x);
-  }
-
-  const groups = rows.reduce((groups, item) => ({
-    ...groups,
-    [item.secret]: [...(groups[item.secret] || []), item]
-  }), {});
-
-  const groupsBit = rowsBits.reduce((groupsBit, item) => ({
-    ...groupsBit,
-    [item.secret]: [...(groupsBit[item.secret] || []), item]
-  }), {});
-
-  // const test = [...groups, ...groupsBit];
-  const test = groups.concat(groupsBit);
-
-  console.log('groups', groups);
-  console.log('groupsBit', groupsBit);
-  console.log('test', test);
-
   const getHistory = () => {
-    gettingTags()
-    gettingBits()
-    console.log('got History');
-    setIdk([...rows, ...rowsBits])
+    pastOrderService.getMyTags()
+      .then(response => {
+        const rows2 = response['Tags']
+        rows2.forEach(row => {
+          row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
+        })
+      pastOrderService.getMyBits()
+        .then(response => {
+        const rows3 = response['Bis']
+        rows3.forEach(row => {
+          row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
+        })
+        const allRows = rows2.concat(rows3);
+        setRows(allRows.sort((a, b) => a.id - b.id))
+      })
+      })
   }
 
   const columns = [
@@ -169,7 +101,7 @@ export const History = (props) => {
               handleLink(event, cellValues);
             }}
           >
-            <Link to={`/history/${cellValues.row.id}`}>Link</Link>
+            <Link to={ cellValues.row.secret ? `/bits/${cellValues.row.id}`: `/history/${cellValues.row.id}`}>Link</Link>
           </Button>
         );
       },
@@ -220,7 +152,7 @@ export const History = (props) => {
           display: 'flex', height: 631.5, width: 700
         }}>
           <DataGrid
-            rows={idk}
+            rows={rows}
             columns={columns}
             pageSize={10}
             rowsPerPageOptions={[10]}
@@ -229,11 +161,11 @@ export const History = (props) => {
             experimentalFeatures={{ newEditingApi: true }}
             onCellClick={handleCellClick}
             onRowClick={handleRowClick}
-          />
+            />
         </Box>
       </Box>
     </>
-  )
+    )
 }
 
 export default History;

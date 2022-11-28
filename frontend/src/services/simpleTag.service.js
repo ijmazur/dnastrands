@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_SIMPLETAG_URL = 'http://127.0.0.1:8000/simple-tag';
-const API_BITS_URL = 'http://127.0.0.1:8000/generate-bits';
+const API_BITS_URL = 'http://127.0.0.1:8000/generate-bits/';
 
 const defaultConfig = {
   headers: {
@@ -19,10 +19,10 @@ class SimpleTagService {
       .then(response => response.data)
   }
 
-  generateBits() {
+  generateBits(input) {
     const config = defaultConfig;
     config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('user');
-    return axios.get(API_BITS_URL, config)
+    return axios.post(API_BITS_URL, input, config)
       .then(response => response.data)
   }
 }

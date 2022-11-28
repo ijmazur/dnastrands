@@ -112,15 +112,15 @@ class BitViewSet(APIView):
             serializer = BitSerializer(bit)
             return Response({"Bit": serializer.data})
         
-        print("request user", request.user)
-        print("request", request)
-        be_data = bits.generate()
+        # print("request user", request.user)
+        # print("request", request)
+        # be_data = bits.generate(inputData)
         
-        print("request user id", request.user.id)
-        be_data['owner'] = request.user.id
-        serializer = BitSerializer(data = be_data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+        # print("request user id", request.user.id)
+        # be_data['owner'] = request.user.id
+        # serializer = BitSerializer(data = be_data)
+        # if serializer.is_valid(raise_exception=True):
+        #     serializer.save()
 
         bitss = Bit.objects.all()
         print("bits", bitss)
@@ -128,11 +128,14 @@ class BitViewSet(APIView):
         return Response({"Bits": serializer.data})
 
     def post(self, request):
-        bit = request.data.get('Bit')
+        # bit = request.data.get('Bit')
+        print("request", request)
+        bit = bits.generate(request.data)
+        bit['owner'] = request.user.id
         serializer = BitSerializer(data=bit)
         if serializer.is_valid(raise_exception=True):
             tag_saved = serializer.save()
-        return Response({"success": "Bit '{}' created successfully".format(tag_saved.verification_codes)})
+        return Response({"success": "Bit '{}' created successfully".format(tag_saved)})
 
     def delete(self, request, pk):
         bit = get_object_or_404(Bit.objects.all(), pk=pk)

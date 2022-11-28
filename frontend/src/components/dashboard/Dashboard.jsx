@@ -34,6 +34,7 @@ export default function Dashboard(props, user) {
   const [openDialog, setOpenDialog] = useState(false);
   const [openDialog2, setOpenDialog2] = useState(false);
   const [userList, setUserList] = useState([]);
+  const [userInput, setUserInput] = useState("");
   const navigate = useNavigate();
   const loadUsers = () => {
     mainuserService.getsecondUserList().then(
@@ -69,7 +70,7 @@ export default function Dashboard(props, user) {
   };
 
   const handleGenerateBits = () => {
-    simpleTagService.generateBits();
+    simpleTagService.generateBits(userInput);
   };
 
   const handleClickOpen3 = () => {
@@ -181,6 +182,8 @@ export default function Dashboard(props, user) {
                   type="secret"
                   fullWidth
                   variant="standard"
+                  value={userInput}
+                  onChange={(value) => {{console.log("value", value); setUserInput(value.target.value)}}}
                 />
               </DialogContent>
               <DialogActions>
