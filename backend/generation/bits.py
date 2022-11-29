@@ -18,8 +18,8 @@ primers = []
 def generate(inputData):
     data = ''.join(format(ord(x), 'b') for x in inputData)
 
-    #absolute_path = open("C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt", "r")
-    absolute_path = open("D:/Python/dnastrands/backend/generation/primers_small_set.txt", "r")
+    absolute_path = open("C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt", "r")
+    #absolute_path = open("D:/Python/dnastrands/backend/generation/primers_small_set.txt", "r")
     for line in absolute_path:
         primers.append(line[:-1])
     absolute_path.close()

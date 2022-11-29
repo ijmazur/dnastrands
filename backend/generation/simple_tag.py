@@ -6,8 +6,8 @@ primers = []
 strand_len = 1000
 primers_base_name = "primers_small_set.txt"
 relative_path = "generation/primers_small_set.txt"
-# absolute_path = "C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt"
-absolute_path = "D:/Python/dnastrands/backend/generation/primers_small_set.txt"
+absolute_path = "C:/Users/mazuri/Source/repos/dnastrands/backend/generation/primers_small_set.txt"
+#absolute_path = "D:/Python/dnastrands/backend/generation/primers_small_set.txt"
 # Function to genrate random DNA strand with givel length
 
 

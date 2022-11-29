@@ -56,7 +56,6 @@ class TagViewSet(APIView):
         
         print("request user", request.user)
         print("request", request)
-        print("request input", request.input)
         be_data = simple_tag.generate()
         
         print("request user id", request.user.id)

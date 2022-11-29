@@ -17,14 +17,14 @@ export const MyTags = (props) => {
   const downloadTagData = (id) => {
     pastOrderService.getTagById(id).then((response) => {
       const tag = response['Tag'];
-      tag.orderNumber = `${tag.secret ? 'TAG' : 'S-TAG'}${tag.id.toString().padStart(6, '0')}`;
+      tag.orderNumber = `${tag.secret ? 'S-TAG' : 'TAG'}${tag.id.toString().padStart(6, '0')}`;
       setTag(tag)
     });
   };
 
   const handleDownload = (event, tag) => {
     pastOrderService.getTagById(tag.id).then((response) => {
-      tag.orderNumber = `${tag.secret ? 'TAG' : 'S-TAG'}${tag.id.toString().padStart(6, '0')}`;
+      tag.orderNumber = `${tag.secret ? 'S-TAG' : 'TAG'}${tag.id.toString().padStart(6, '0')}`;
       const fileName = `${tag.orderNumber}.json`;
       const fileToSave = new Blob([JSON.stringify(response, undefined, 2)], {
         type: 'application/json'

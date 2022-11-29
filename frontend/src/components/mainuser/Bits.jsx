@@ -21,7 +21,7 @@ export const Bits = (props) => {
       bit.orderNumber = `${bit.secret ? 'BIT' : 'S-TAG'}${bit.id.toString().padStart(6, '0')}`;
       setBit(bit)
       setWholeThing(JSON.parse(bit.whole_bit))
-      setTimeout(() => console.log('wasd', JSON.parse(bit.whole_bit)), 1000)
+      // setTimeout(() => console.log('wasd', JSON.parse(bit.whole_bit)), 1000)
     });
   };
 

@@ -45,23 +45,20 @@ export default function Dashboard(props, user) {
   };
 
   const handleClickOpen = () => {
-    console.log("second user list get", userList);
+    // console.log("second user list get", userList);
     // console.log("second user list put", mainuserService.updateUser(user[1]));
     setOpenDialog(true);
   };
 
   const handleClose = () => {
-    console.log('asd');
     setOpenDialog(false);
   };
 
   const handleClickOpen2 = () => {
-    console.log('asd2 open');
     setOpenDialog2(true);
   };
 
   const handleClose2 = () => {
-    console.log('asd2 close');
     setOpenDialog2(false);
   };
 
@@ -162,7 +159,7 @@ export default function Dashboard(props, user) {
             backgroundSize: 'cover', backgroundRepeat: 'no-repeat', m: 1,
             width: '500px', height: '700px', borderRadius: '5%',
           }}>
-          <Typography variant="h3" style={{ textAlign: 'center' }}> Generate Bits </Typography>
+          <Typography variant="h3" style={{ textAlign: 'center' }}> Generate BIT </Typography>
           <div onMouseEnter={() => setIsShown3(true)} onMouseLeave={() => setIsShown3(false)}>
           <img src={require("../../images/dna.jpg")}
               alt='Dna' width={'100%'}
@@ -172,7 +169,7 @@ export default function Dashboard(props, user) {
               <DialogTitle>Generator of Bits</DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  Please insert a string of text or binary number to code into bits.
+                  Please insert a string of text to code into bits.
                 </DialogContentText>
                 <TextField
                   autoFocus

@@ -62,7 +62,7 @@ export const History = (props) => {
       .then(response => {
         const rows2 = response['Tags']
         rows2.forEach(row => {
-          row.orderNumber = `${row.secret ? 'TAG' : 'S-TAG'}${row.id.toString().padStart(6, '0')}`
+          row.orderNumber = `${row.secret ? 'S-TAG' : 'TAG'}${row.id.toString().padStart(6, '0')}`
         })
       pastOrderService.getMyBits()
         .then(response => {
@@ -70,8 +70,13 @@ export const History = (props) => {
         rows3.forEach(row => {
           row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
         })
-        const allRows = rows2.concat(rows3);
+        // const allRows = rows2.concat(rows3);
+        const allRows = [...rows2, ...rows3]
         setRows(allRows.sort((a, b) => a.id - b.id))
+        // setRows(allRows)
+        console.log('rows2', rows2);
+        console.log('rows3', rows3);
+        console.log('rowsx', allRows);
       })
       })
   }

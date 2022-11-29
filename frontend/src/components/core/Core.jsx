@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import authService from '../../services/auth.service';
 import UserData from '../UserData';
 import { styled, useTheme, alpha } from '@mui/material/styles';
-import {Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Button, Grid} from '@mui/material'
+import { Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Button, Grid } from '@mui/material'
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -148,13 +148,19 @@ function PersistentDrawerRight(props) {
         </DrawerHeader>
         <List>
           <Divider />
-          <Divider />
-          <ListItem button key={'Generate'} component={Link} to="/main">
+          <ListItem button key={'Generate TAG'} component={Link} to="/main">
             <ListItemIcon>
               <BiotechSharpIcon />
             </ListItemIcon>
-            <ListItemText primary={'Generate'} />
+            <ListItemText primary={'Generate TAG'} />
           </ListItem>
+          <Divider />
+            <ListItem button key={'Generate BIT'} component={Link} to="/main">
+              <ListItemIcon>
+                <FingerprintIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Generate BIT'} />
+            </ListItem>
           <Divider />
           <ListItem button key={'Profile'} component={Link} to="/profile">
             <ListItemIcon>
