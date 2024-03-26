@@ -1,5 +1,7 @@
 # Application for my BA Thesis: A web-based application for designing DNA strand
-structure to store information
+Project created for my BA Thesis, a bioinformatics tool focused on DNA sequence analysis. A web application with two main use cases, generating sequences of DNA that are presented to the user in an intuitive manner, ready to be processed into a maker device that allows recording of information. Converting input into bits which is then encrypted using DNA strands.    
+
+**Technological stack and tools used:** Django, React, MaterialUI, PostgreSQL, Redis, Docker, JWT, Postman, DBeaver.
 
 ![8apitoken](https://user-images.githubusercontent.com/11295764/196522201-7e7d9216-fa41-4428-9b0a-374897e435eb.png)
 ![8apitokenuser](https://user-images.githubusercontent.com/11295764/196522244-a672b654-bdfb-4a8c-8676-3f0b7ed3f4b8.png)
