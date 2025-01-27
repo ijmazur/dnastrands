@@ -66,18 +66,20 @@ export const History = (props) => {
         })
       pastOrderService.getMyBits()
         .then(response => {
-        const rows3 = response['Bis']
-        rows3.forEach(row => {
-          row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
+          const rows3 = response['Bis']
+          rows3.forEach(row => {
+            row.orderNumber = `${row.secret ? 'BIT' : 'S-BIT'}${row.id.toString().padStart(6, '0')}`
+          })
+
+          const allRows = [...rows2, ...rows3].sort((a, b) => a.id - b.id); 
+          
+          allRows.forEach((row, index) => {
+            row.old_id = row.id; 
+            row.id = index + 1;   
+          });
+          
+          setRows(allRows)
         })
-        // const allRows = rows2.concat(rows3);
-        const allRows = [...rows2, ...rows3]
-        setRows(allRows.sort((a, b) => a.id - b.id))
-        // setRows(allRows)
-        console.log('rows2', rows2);
-        console.log('rows3', rows3);
-        console.log('rowsx', allRows);
-      })
       })
   }
 
@@ -106,7 +108,7 @@ export const History = (props) => {
               handleLink(event, cellValues);
             }}
           >
-            <Link to={ cellValues.row.secret ? `/bits/${cellValues.row.id}`: `/history/${cellValues.row.id}`}>Link</Link>
+            <Link to={ cellValues.row.secret ? `/bits/${cellValues.row.old_id}`: `/history/${cellValues.row.old_id}`}>Link</Link>
           </Button>
         );
       },
