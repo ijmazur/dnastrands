@@ -7,6 +7,96 @@ Project created for my BA Thesis, a bioinformatics tool focused on DNA sequence 
 Authorization is done with JWT, three available URL's 
 **/api/token, /api/token/user/, /api/token/refresh/**
 
+# DNAStrands Project Setup
+This README provides instructions to set up and run the DNAStrands project on your local machine.
+
+## Prerequisites
+
+Before getting started, make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) version 14.15.5 
+- [Python](https://www.python.org/) (version 3.x)
+- [Docker](https://www.docker.com/get-started)
+
+# Steps to Run the Project
+
+## 1. Clone the Repository
+
+Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/ijmazur/dnastrands.git
+```
+
+## 2. Frontend Setup
+```bash
+cd frontend
+npm install
+```
+
+## 3. Backend Setup
+```bash
+cd .. # back into the main directory from /frontend/
+python -m venv venv
+venv\Scripts\activate # For Windows
+source venv\bin\activate # For macOS/Linux
+```
+
+### Install the required Python packages:
+```bash
+pip install -r requirements.txt
+```
+
+### Run Django server:
+```bash
+cd backend/core
+python manage.py runserver
+```
+
+### If additional packages require installations:
+```bash
+pip install django-celery-beat
+pip install django-celery-results
+pip install django-cors-headers
+pip install psycopg
+pip install psycopg2
+pip install setuptools
+pip install "Django<4.0"
+```
+
+## 4. Docker Setup
+Run command from the main directory
+```bash
+docker-compose up 
+```
+
+## 5. Database Migrations
+Run the migrations to set up the database schema:
+```bash
+python manage.py showmigrations
+python manage.py migrate
+```
+
+## 6. Starting the application
+Start Docker container if not already running:
+```bash
+docker start
+```
+
+Run the Django server:
+```bash
+python manage.py runserver
+```
+
+Run the frontend application:
+```bash
+npm start
+```
+
+You should now have both the frontend and backend running locally!
+This should provide clear instructions on how to set up and run your project. Let me know if you run into issues and need help!
+
+# View into the application
 By logging in with username and password on **/api/token/** we recieve a response in JSON format of access and refresh tokens:
 ![8apitoken](https://user-images.githubusercontent.com/11295764/196522201-7e7d9216-fa41-4428-9b0a-374897e435eb.png)
 
