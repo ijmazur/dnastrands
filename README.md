@@ -1,10 +1,26 @@
-# Application for my BA Thesis: A web-based application for designing DNA strand
-Project created for my BA Thesis, a bioinformatics tool focused on DNA sequence analysis. A web application with two main use cases, generating sequences of DNA that are presented to the user in an intuitive manner, ready to be processed into a maker device that allows recording of information. Converting input into bits which is then encrypted using DNA strands.    
+# Application for my BA Thesis: A web-based application for designing DNA strand structure to store information
+Project created for my BA Thesis, a bioinformatics tool for designing DNA sequences. A web application with two main use cases, generating sequences of DNA that are presented to the user in an intuitive manner, ready to be processed into a maker device that allows recording of information. Input is converted into bits, which are then encoded into DNA strand sequences.
 
 **Technological stack and tools used:** Django, React, MaterialUI, PostgreSQL, Redis, Docker, JWT, Postman, DBeaver.
 
+# About the project
+Synthetic DNA can store data, for example a cryptographic key, but the existing encoding methods mostly live in research scripts that need specialist knowledge to run. DNAStrands puts DNA encoding behind a web interface: a user signs in, generates sequences, keeps a history of them and exports them as JSON, ready to be sent for synthesis.
+
+It generates two kinds of sequence:
+
+- **Bit sequences** (`backend/generation/bits.py`). The input text is converted to binary and split into blocks of 8 bits, one block per strand. Each strand has the structure `S - B1 - s1 - B2 - ... - B8 - E`: start and end primers `S` and `E`, a primer `B` that stands for a 0 or a 1 at each bit position, and random 20-nucleotide separators `s` between them. The data is read back by PCR and the pattern of bands on an electrophoresis gel, not by sequencing.
+- **Simple tags** (`backend/generation/simple_tag.py`). A 1,000-nucleotide strand made of three primer binding sites, drawn at random from a set of a thousand primers, separated by random filler sequences. Running PCR with two primer pairs gives two bands of known length, which verifies a tagged object.
+
+Around the generators sits the Django REST API with JWT authentication, the PostgreSQL data model that ties every sequence to its owner, and the React interface for generating, browsing, downloading and deleting sequences.
+
+The full thesis (in Polish) is in [MFI-LIC-THESIS.pdf](MFI-LIC-THESIS.pdf).
+
+It is a proof of concept, not a production system. Passwords are hashed with PBKDF2 and the API is protected by JWT, but the thesis lists what it would take to go further: HTTPS, a CORS policy, security testing and dependency updates.
+
+The Django secret key is read from the `DJANGO_SECRET_KEY` environment variable. If it is not set, a random key is generated on every start, so you need to log in again after a restart.
+
 # Testing via Postman:
-Authorization is done with JWT, three available URL's 
+Authorization is done with JWT, three available URLs:
 **/api/token, /api/token/user/, /api/token/refresh/**
 
 # DNAStrands Project Setup
@@ -39,7 +55,7 @@ npm install
 cd .. # back into the main directory from /frontend/
 python -m venv venv
 venv\Scripts\activate # For Windows
-source venv\bin\activate # For macOS/Linux
+source venv/bin/activate # For macOS/Linux
 ```
 
 ### Install the required Python packages:
@@ -94,10 +110,9 @@ npm start
 ```
 
 You should now have both the frontend and backend running locally!
-This should provide clear instructions on how to set up and run your project. Let me know if you run into issues and need help!
 
 # View into the application
-By logging in with username and password on **/api/token/** we recieve a response in JSON format of access and refresh tokens:
+By logging in with username and password on **/api/token/** we receive a response in JSON format of access and refresh tokens:
 ![8apitoken](https://user-images.githubusercontent.com/11295764/196522201-7e7d9216-fa41-4428-9b0a-374897e435eb.png)
 
 **/api/token/user/** returns user information:
@@ -110,10 +125,10 @@ By logging in with username and password on **/api/token/** we recieve a respons
 Sending a GET request to /simple-tag/my-tags returns a list of simple-tags created for currently logged in user: 
 ![8simpletagmytags](https://user-images.githubusercontent.com/11295764/196522325-0b184be3-c965-4493-aa7c-aef781c34f34.png)
 
-Database prior to sending DELETE request to /simple-tag/my-tags/{int:id}/ 
+Database prior to sending a DELETE request to /simple-tag/my-tags/{int:id}/ 
 ![dbpredelete](https://user-images.githubusercontent.com/11295764/196522410-3e66361e-5db9-4c34-9f10-bbe9bc95dc9a.png)
 
-Information recevied on succession of deleting the record of ID 21 from database
+Information received after successfully deleting the record with ID 21 from the database:
 ![8mytagsdelete](https://user-images.githubusercontent.com/11295764/196522425-00e4dfe2-dfd1-4d28-90b4-7c33bf5d60a7.png)
 
 Confirming that the record with ID 21 has been deleted:\
